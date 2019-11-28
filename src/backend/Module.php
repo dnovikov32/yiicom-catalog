@@ -4,17 +4,28 @@ namespace yiicom\catalog\backend;
 
 class Module extends \yiicom\catalog\common\Module
 {
-    public function getAdminMenu()
+    /**
+     * @inheritDoc
+     */
+    public function settings()
+    {
+        return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function adminMenu()
     {
         return [
             'label' => 'Каталог',
-            'url' => ['/catalog/category/index'],
-            'icon' => 'nav-icon fa fa-sitemap',
+            'url' => '/catalog/category/index',
+            'icon' => 'fa fa-sitemap',
             'items' => [
                 [
                     'label' => 'Категории',
-                    'url' => ['/catalog/category/index'],
-                    'icon' => 'nav-icon fa fa-list',
+                    'url' => '/catalog/category/index',
+                    'icon' => 'fa fa-list',
                 ]
             ]
         ];
