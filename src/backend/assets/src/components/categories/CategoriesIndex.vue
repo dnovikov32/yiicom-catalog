@@ -2,7 +2,7 @@
 
     <div>
 
-        <yc-admin-buttons :model="model"></yc-admin-buttons>
+        <yc-admin-buttons></yc-admin-buttons>
 
         <div v-html="grid"></div>
 

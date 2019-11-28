@@ -3,16 +3,13 @@ namespace app\modules\category\controllers;
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use app\modules\page\models\Page;
-use app\modules\category\models\Category;
-use app\modules\attribute\models\Attribute;
-use app\modules\product\models\Product;
+use yiicom\content\common\models\Page;
+use yiicom\catalog\common\models\Category;
+//use app\modules\attribute\models\Attribute;
+use yiicom\catalog\common\models\Product;
 
-
-class SiteController extends \app\modules\site\components\SiteController
+class CategoryController extends \app\modules\site\components\SiteController
 {
-
-
 	public function actionIndex($id)
 	{
 		$page = $this->findModel($id, Page::className());
@@ -44,7 +41,7 @@ class SiteController extends \app\modules\site\components\SiteController
 		return $this->render('view', [
 			'category' => $category,
 			'products' => $products,
-			'attributes' => Attribute::getList(),
+//			'attributes' => Attribute::getList(),
 		]);
 	}
 
@@ -67,7 +64,7 @@ class SiteController extends \app\modules\site\components\SiteController
 //		echo '<pre>$products'; print_r($products); echo '</pre>';
 
 		return $this->render('//modules/product/views/site/_product-m', [
-			'products' => $products,
+//			'products' => $products,
 			'loader' => true,
 		]);
 	}

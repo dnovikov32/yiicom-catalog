@@ -18,8 +18,8 @@ use yiicom\content\common\interfaces\ModelPageUrl;
 use yiicom\content\common\traits\ModelPageUrlTrait;
 use yiicom\content\common\models\PageUrl;
 use yiicom\content\common\behaviors\PageUrlBehavior;
-use modules\files\common\behaviors\FilesBehavior;
-use modules\files\common\models\File;
+use yiicom\files\common\behaviors\FilesBehavior;
+use yiicom\files\common\models\File;
 
 /**
  * @property integer $id
@@ -91,16 +91,16 @@ class Category extends ActiveRecord implements ModelStatus, ModelList, ModelRela
 	public function attributeLabels()
 	{
 		return [
-            'id' => Yii::t("commerce", "ID"),
+            'id' => Yii::t('commerce', 'ID'),
 		    'parentId' => 'Родительская категория',
 			'name' => 'Имя категории',
-            'title' => Yii::t("commerce", "Page title H1"),
-            'teaser' => Yii::t("commerce", "Teaser"),
-            'body' => Yii::t("commerce", "Content"),
+            'title' => Yii::t('commerce', 'Page title H1'),
+            'teaser' => Yii::t('commerce', 'Teaser'),
+            'body' => Yii::t('commerce', 'Content'),
             'isShowPrice' => 'Показывать цены',
-            'status' => Yii::t("commerce", "Status"),
-            'createdAt' => Yii::t("commerce", "Created At"),
-            'updatedAt' => Yii::t("commerce", "Updated At"),
+            'status' => Yii::t('commerce', 'Status'),
+            'createdAt' => Yii::t('commerce', 'Created At'),
+            'updatedAt' => Yii::t('commerce', 'Updated At'),
 		];
 	}
 

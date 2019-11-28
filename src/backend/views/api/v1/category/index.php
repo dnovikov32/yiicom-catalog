@@ -29,7 +29,8 @@ use yiicom\backend\grid\ActionColumn;
             'headerOptions' => ['class' => 'wpx-75'],
 			'buttons' => [
 				'view' => function($url, $model) {
-                    $link = isset($model->url->alias) ? \Yii::getAlias("@frontendWeb/{$model->url->alias}") : $url;
+                    $alias = $model->url->alias ?? null;
+                    $link = $alias ? \Yii::getAlias("@frontendWeb/$alias") : $url;
 
 					return Html::a('<i class="fa fa-eye"></i>', $link, ['target' => 'blank']);
 				}

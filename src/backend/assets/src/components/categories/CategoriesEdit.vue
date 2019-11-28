@@ -105,8 +105,9 @@
 </template>
 
 <script>
-    import UrlForm from "./../../../../../../pages/backend/assets/src/components/UrlForm.vue";
-    import FilesForm from "./../../../../../../files/backend/assets/src/components/FilesForm.vue";
+    // TODO: do something with component import from another module
+    import UrlForm from "./../../../../../../../yiicom-content/src/backend/assets/src/components/UrlForm.vue";
+    import FilesForm from "./../../../../../../../yiicom-files/src/backend/assets/src/components/FilesForm.vue";
 
     export default {
 
@@ -117,19 +118,19 @@
 
         computed: {
             isDev: function () {
-                return this.$store.getters['isDev'];
+                return this.$store.getters['commerce/isDev'];
             },
             isLoading: function () {
-                return this.$store.getters['isLoading'];
+                return this.$store.getters['commerce/isLoading'];
             },
             hasError: function () {
-                return this.$store.getters['hasError'];
+                return this.$store.getters['commerce/hasError'];
             },
             model: function () {
                 return this.$store.getters['catalog-categories/model'];
             },
             settings: function () {
-                return this.$store.getters['settings'];
+                return this.$store.getters['commerce/settings'];
             },
             statuses: function () {
                 return _.isEmpty(this.settings) ? [] : this.settings.statusesList;

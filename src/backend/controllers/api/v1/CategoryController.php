@@ -7,12 +7,12 @@ use yii\helpers\Html;
 use yii\web\ServerErrorHttpException;
 use yiicom\backend\base\ApiController;
 use yiicom\common\traits\ModelTrait;
-use yiicom\catalog\common\models\Category;
-use yiicom\catalog\backend\models\CategorySearch;
 use yiicom\content\common\grid\UrlAliasColumn;
-use yiicom\catalog\backend\forms\CategoryForm;
+use yiicom\catalog\common\models\Category;
 use yiicom\catalog\common\models\CategoryFinder;
 use yiicom\catalog\common\category\CategoryList;
+use yiicom\catalog\backend\models\CategorySearch;
+use yiicom\catalog\backend\forms\CategoryForm;
 
 class CategoryController extends ApiController
 {
@@ -77,7 +77,7 @@ class CategoryController extends ApiController
     {
         try {
             /* @var CategoryForm $model */
-            $model = $this->findOrNewModel(CategoryForm::class, $id, true);
+            $model = $this->findOrNewModel(CategoryForm::class, $id);
 
             if ($model->isNewRecord) {
                 $model->parentId = (new CategoryFinder)->findRoot()->id ?? null;
@@ -95,7 +95,7 @@ class CategoryController extends ApiController
         try {
             /* @var CategoryForm $model */
             $id = Yii::$app->request->post('id');
-            $model = $this->findOrNewModel(CategoryForm::class, $id, true);
+            $model = $this->findOrNewModel(CategoryForm::class, $id);
 
             if ($model->loadAll(Yii::$app->request->post()) && $model->validateAll()) {
                 if (! $model->process()) {
