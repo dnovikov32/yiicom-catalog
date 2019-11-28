@@ -1,0 +1,13 @@
+{
+  "name": "yiicom/yiicom-catalog",
+  "description": "Yii commerce catalog module",
+  "keywords": ["yii2", "yiicom", "commerce", "catalog"],
+  "type": "yii2-extension",
+  "require": {
+    "yiicom/yiicom": "dev-master",
+    "yiicom/yiicom-content": "dev-master"
+  },
+  "autoload": {
+    "psr-4": { "yiicom\\catalog\\": "src" }
+  }
+}
