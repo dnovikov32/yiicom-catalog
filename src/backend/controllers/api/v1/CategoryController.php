@@ -86,7 +86,7 @@ class CategoryController extends ApiController
             return $model;
 
         } catch (\Throwable $e) {
-            throw new ServerErrorHttpException(Yii::t("commerce", "Server error: ") . $e->getMessage());
+            throw new ServerErrorHttpException(Yii::t("yiicom", "Server error: ") . $e->getMessage());
         }
     }
 
@@ -99,14 +99,14 @@ class CategoryController extends ApiController
 
             if ($model->loadAll(Yii::$app->request->post()) && $model->validateAll()) {
                 if (! $model->process()) {
-                    throw new ServerErrorHttpException(Yii::t("commerce", "Can't save model"));
+                    throw new ServerErrorHttpException(Yii::t("yiicom", "Can't save model"));
                 }
             }
 
             return $model;
 
         } catch (\Throwable $e) {
-            throw new ServerErrorHttpException(Yii::t("commerce", "Server error: ") . $e->getMessage());
+            throw new ServerErrorHttpException(Yii::t("yiicom", "Server error: ") . $e->getMessage());
         }
     }
 
@@ -125,7 +125,7 @@ class CategoryController extends ApiController
                 return ['status' => 'success'];
             }
 
-            throw new ServerErrorHttpException(Yii::t("commerce", "Can't delete model"));
+            throw new ServerErrorHttpException(Yii::t("yiicom", "Can't delete model"));
 
             // Удаляет все связи товара с категорией и ее вложенными подкатегориями
             // TODO: add category delete
@@ -142,7 +142,7 @@ class CategoryController extends ApiController
 
 
         } catch (\Throwable $e) {
-            throw new ServerErrorHttpException(Yii::t("commerce", "Server error: ") . $e->getMessage());
+            throw new ServerErrorHttpException(Yii::t("yiicom", "Server error: ") . $e->getMessage());
         }
     }
 

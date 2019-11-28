@@ -20,7 +20,7 @@ class CreateController extends Controller
     public function actionDefaults()
     {
         $catalogPage = new Page;
-        $catalogPage->title = Yii::t("yiicom-catalog", "Catalog page");
+        $catalogPage->title = Yii::t("yiicom/catalog", "Catalog page");
         $catalogPage->template = 'catalog';
 
         $catalogPage->url = Yii::createObject(PageUrl::class);

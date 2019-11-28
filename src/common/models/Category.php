@@ -91,16 +91,16 @@ class Category extends ActiveRecord implements ModelStatus, ModelList, ModelRela
 	public function attributeLabels()
 	{
 		return [
-            'id' => Yii::t('commerce', 'ID'),
+            'id' => Yii::t('yiicom', 'ID'),
 		    'parentId' => 'Родительская категория',
 			'name' => 'Имя категории',
-            'title' => Yii::t('commerce', 'Page title H1'),
-            'teaser' => Yii::t('commerce', 'Teaser'),
-            'body' => Yii::t('commerce', 'Content'),
+            'title' => Yii::t('yiicom', 'Page title H1'),
+            'teaser' => Yii::t('yiicom', 'Teaser'),
+            'body' => Yii::t('yiicom', 'Content'),
             'isShowPrice' => 'Показывать цены',
-            'status' => Yii::t('commerce', 'Status'),
-            'createdAt' => Yii::t('commerce', 'Created At'),
-            'updatedAt' => Yii::t('commerce', 'Updated At'),
+            'status' => Yii::t('yiicom', 'Status'),
+            'createdAt' => Yii::t('yiicom', 'Created At'),
+            'updatedAt' => Yii::t('yiicom', 'Updated At'),
 		];
 	}
 
