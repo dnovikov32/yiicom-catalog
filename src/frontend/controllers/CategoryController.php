@@ -1,24 +1,33 @@
 <?php
-namespace app\modules\category\controllers;
+
+namespace yiicom\catalog\frontend\controllers;
 
 use Yii;
 use yii\web\NotFoundHttpException;
+use yiicom\common\base\Controller;
 use yiicom\content\common\models\Page;
+use yiicom\content\frontend\traits\SitePageTrait;
 use yiicom\catalog\common\models\Category;
-//use app\modules\attribute\models\Attribute;
 use yiicom\catalog\common\models\Product;
+//use app\modules\attribute\models\Attribute;
 
-class CategoryController extends \app\modules\site\components\SiteController
+class CategoryController extends Controller
 {
+    use SitePageTrait;
+
 	public function actionIndex($id)
 	{
-		$page = $this->findModel($id, Page::className());
-		$this->setPageParams($page);
+//	    echo '<pre>$id '; print_r($id);echo '</pre>';
+//		$page = $this->findModel(Page::class, $id);
+//
+//		$category = Category::findOne(['level' => 0]);
+//        $this->setMetaParams($category);
 
-		$category = Category::findOne(['level' => 0]);
+        $category = $this->loadModel(Category::class, $id);
 
+//echo '<pre>$category'; print_r($category);echo '</pre>';
 		return $this->render('index', [
-            'page' => $page,
+//            'page' => $page,
 			'category' => $category,
 		]);
 	}

@@ -21,12 +21,12 @@ class CategoryForm extends Category
     public function process()
     {
         $root = (new CategoryFinder)->findRoot();
-        
+
         if (! $root) {
             return $this->makeRoot();
         }
 
-        $parent = $this->getParent();
+        $parent = $this->parent;
 
         if ($parent) {
             return $this->appendTo($parent);
