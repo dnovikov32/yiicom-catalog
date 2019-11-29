@@ -10,6 +10,8 @@ use yii\base\InvalidConfigException;
 use yiicom\content\common\models\PageUrl;
 use yiicom\content\common\models\Page;
 
+use yiicom\catalog\backend\forms\CategoryForm;
+
 class CreateController extends Controller
 {
     /**
@@ -19,17 +21,21 @@ class CreateController extends Controller
      */
     public function actionDefaults()
     {
-        $catalogPage = new Page;
-        $catalogPage->title = Yii::t("yiicom/catalog", "Catalog page");
-        $catalogPage->template = 'catalog';
+        $catalog = new CategoryForm;
+        $catalog->left = 1;
+        $catalog->right = 2;
+        $catalog->level = 0;
+        $catalog->name = Yii::t('yiicom/catalog', 'Catalog');
+        $catalog->title = Yii::t('yiicom/catalog', 'Catalog');
 
-        $catalogPage->url = Yii::createObject(PageUrl::class);
-        $catalogPage->url->alias = 'catalog';
+        $catalog->url = Yii::createObject(PageUrl::class);
+        $catalog->url->alias = 'catalog';
+        $catalog->url->route = 'catalog/category/index';
 
-        if (! $catalogPage->save()) {
+        if (! $catalog->process()) {
             Console::output(
                 Console::ansiFormat(
-                    "Failed to create catalog page: "  . implode(', ', $catalogPage->getFirstErrors()),
+                    "Failed to create catalog page: "  . implode(', ', $catalog->getFirstErrors()),
                     [Console::FG_RED]
                 )
             );
