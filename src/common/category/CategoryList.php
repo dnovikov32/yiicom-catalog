@@ -20,7 +20,7 @@ class CategoryList
     /**
      * @var array
      */
-    private $_items;
+    private $_items = [];
 
     /**
      * @param bool $root Add root category to results. The default value is `false`.
