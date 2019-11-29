@@ -8,40 +8,51 @@ use yiicom\common\base\Controller;
 use yiicom\content\common\models\Page;
 use yiicom\content\frontend\traits\SitePageTrait;
 use yiicom\catalog\common\models\Category;
+use yiicom\catalog\common\models\CategoryFinder;
 use yiicom\catalog\common\models\Product;
 //use app\modules\attribute\models\Attribute;
+
 
 class CategoryController extends Controller
 {
     use SitePageTrait;
 
+    /**
+     * Catalog page
+     * @param int $id Category ID
+     * @return string
+     */
 	public function actionIndex($id)
 	{
-//	    echo '<pre>$id '; print_r($id);echo '</pre>';
-//		$page = $this->findModel(Page::class, $id);
-//
-//		$category = Category::findOne(['level' => 0]);
-//        $this->setMetaParams($category);
-
         $category = $this->loadModel(Category::class, $id);
 
-//echo '<pre>$category'; print_r($category);echo '</pre>';
 		return $this->render('index', [
-//            'page' => $page,
 			'category' => $category,
 		]);
 	}
 
-
 	public function actionView($id)
 	{
-		$category = Category::getById($id);
+	    /** @var Category $category */
+        $category = $this->loadModel(Category::class, $id);
+        $categoryChildrenIds = (new CategoryFinder())->findChildren($category)->ids();
+        $categoryIds = array_merge([$category->id], $categoryChildrenIds);
 
-		if(!$category) {
-			throw new NotFoundHttpException;
-		}
+//        echo '<pre>'; print_r( (new CategoryFinder())->findChildren($category)->all() );echo '</pre>';exit;
 
-        $this->setPageParams($category);
+        echo '<pre>current '; print_r($category->id);echo '</pre>';
+        echo '<pre>child: '; print_r($categoryChildrenIds);echo '</pre>';
+
+        echo '<pre>all: '; print_r(array_merge([$category->id], $categoryChildrenIds));echo '</pre>';
+        exit;
+        $products = (new ProductFinder())
+            ->findByCategory($categoryIds)
+            ->all();
+
+
+//        $products = Product::find()
+//            ->byCategory($categoryIds)
+//            ->all();
 
 		$products = Product::getProducts([
 			'categoryId' => $category->getAllChildIds(),
