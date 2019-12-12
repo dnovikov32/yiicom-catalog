@@ -19,9 +19,14 @@ class Module extends \yiicom\catalog\common\Module
     {
         return [
             'label' => 'Каталог',
-            'url' => '/catalog/category/index',
+            'url' => '/catalog/product/index',
             'icon' => 'fa fa-sitemap',
             'items' => [
+                [
+                    'label' => 'Товары',
+                    'url' => '/catalog/product/index',
+                    'icon' => 'fa fa-list-alt',
+                ],
                 [
                     'label' => 'Категории',
                     'url' => '/catalog/category/index',

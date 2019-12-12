@@ -236,17 +236,23 @@ class Category extends ActiveRecord implements ModelStatus, ModelList, ModelRela
 //	}
 
 	/**
-     * Возвращает ID текущей и всех вложенных категорий
+     * Return current and all children category ids
      * @return array
      */
-//    public function getAllChildIds() {
-//        $catIds[$this->id] = $this->id;
+//    public function getChildIds(bool $withCurrent = false) {
+//        $children = $this->children()->all();
 //
-//        foreach ($this->childrens as $child) {
-//            $catIds[$child->id] = $child->id;
+//        if (! $children) {
+//            return [];
 //        }
 //
-//        return $catIds;
+//        $ids[$this->id] = $this->id;
+//
+//        foreach ($this->childrens as $child) {
+//            $ids[$child->id] = $child->id;
+//        }
+//
+//        return $ids;
 //    }
 //
 //
@@ -262,22 +268,6 @@ class Category extends ActiveRecord implements ModelStatus, ModelList, ModelRela
 //		return $this->children()->andWhere('level = 1')->all();
 //	}
 //
-//	/**
-//	 * Возвращает ID всех дочерних категорий
-//	 * @return array
-//	 */
-//	public function getChildrensIds()
-//	{
-//		$ids = [];
-//
-//		if($this->childrens) {
-//			foreach($this->childrens as $child) {
-//				$ids[] = $child->id;
-//			}
-//		}
-//
-//		return $ids;
-//	}
 //
 //	/**
 //	 * Возвращает все вложенные категории основной родительской категории

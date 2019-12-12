@@ -69,11 +69,13 @@ Add module store to Vue application general store
 
 **app/backend/assets/src/store/store.js**
 ```js
-import catalogCategories from '../../../../vendor/yiicom/yiicom-catalog/src/backend/assets/src/store/categories.js'
+import catalogCategory from '../../../../vendor/yiicom/yiicom-catalog/src/backend/assets/src/store/category.js'
+import catalogProduct from '../../../../vendor/yiicom/yiicom-catalog/src/backend/assets/src/store/product.js'
 
 export default new Vuex.Store({
     modules: {
-        'catalog-categories': catalogCategories
+        'catalog-category': catalogCategory,
+        'catalog-product': catalogProduct,
     }
 
 });
@@ -83,13 +85,15 @@ Add module routes to Vue router
 
 **app/backend/assets/src/index.js**
 ```js
-import catalogRoutes from '../../../vendor/yiicom/yiicom-catalog/src/backend/assets/src/routes/catalog.js';
+import catalogCategoryRoutes from '../../../vendor/yiicom/yiicom-catalog/src/backend/assets/src/routes/category.js';
+import catalogProductRoutes from '../../../vendor/yiicom/yiicom-catalog/src/backend/assets/src/routes/product.js';
 
 const router = new VueRouter({
     mode: 'hash',
     linkActiveClass: 'active',
     routes: [
-        ... catalogRoutes
+        ... catalogCategoryRoutes,
+        ... catalogProductRoutes,
     ],
 });
 ```
