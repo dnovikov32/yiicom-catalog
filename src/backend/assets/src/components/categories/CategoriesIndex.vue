@@ -15,18 +15,18 @@
 
         computed: {
             grid () {
-                return this.$store.getters['catalog-categories/grid'];
+                return this.$store.getters['catalog-category/grid'];
             }
         },
 
         watch: {
             '$route': function () {
-                this.$store.dispatch('catalog-categories/all', this.$route.query);
+                this.$store.dispatch('catalog-category/all', this.$route.query);
             }
         },
 
         created () {
-            this.$store.dispatch('catalog-categories/all');
+            this.$store.dispatch('catalog-category/all');
         }
 
     }

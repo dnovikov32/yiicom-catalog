@@ -127,7 +127,7 @@
                 return this.$store.getters['commerce/hasError'];
             },
             model: function () {
-                return this.$store.getters['catalog-categories/model'];
+                return this.$store.getters['catalog-category/model'];
             },
             settings: function () {
                 return this.$store.getters['commerce/settings'];
@@ -136,19 +136,19 @@
                 return _.isEmpty(this.settings) ? [] : this.settings.statusesList;
             },
             categories: function () {
-                return this.$store.getters['catalog-categories/list'];
+                return this.$store.getters['catalog-category/list'];
             }
         },
 
         created () {
-            this.$store.dispatch('catalog-categories/list', this.$route.query.id);
-            this.$store.dispatch('catalog-categories/find', this.$route.query.id);
+            this.$store.dispatch('catalog-category/list', this.$route.query.id);
+            this.$store.dispatch('catalog-category/find', this.$route.query.id);
         },
 
         watch: {
             '$route': function () {
-                this.$store.dispatch('catalog-categories/list', this.$route.query.id);
-                this.$store.dispatch('catalog-categories/find', this.$route.query.id);
+                this.$store.dispatch('catalog-category/list', this.$route.query.id);
+                this.$store.dispatch('catalog-category/find', this.$route.query.id);
             }
         },
 
@@ -156,7 +156,7 @@
             save (event) {
                 event.preventDefault();
 
-                this.$store.dispatch('catalog-categories/save', this.model).then(() => {
+                this.$store.dispatch('catalog-category/save', this.model).then(() => {
                     if (this.hasError) {
                         return false;
                     }
@@ -164,13 +164,13 @@
                     this.$notify({type: 'success', text: 'Категория сохранена'});
 
                     this.$router.push({ path: `/catalog/category/update?id=${this.model.id}` });
-                    this.$store.dispatch('catalog-categories/list', this.$route.query.id);
+                    this.$store.dispatch('catalog-category/list', this.$route.query.id);
                 });
 
             },
 
             destroy () {
-                this.$store.dispatch('catalog-categories/delete', this.model.id).then(() => {
+                this.$store.dispatch('catalog-category/delete', this.model.id).then(() => {
                     this.$notify({type: 'success', text: 'Категория удалена'});
                     this.$router.push({ path: '/catalog/category/index' });
                 });
