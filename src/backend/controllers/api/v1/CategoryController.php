@@ -146,9 +146,9 @@ class CategoryController extends ApiController
         }
     }
 
-    public function actionList(int $id = null)
+    public function actionList(bool $root = false, int $id = null)
     {
-        return (new CategoryList(true, $id))->get();
+        return (new CategoryList($root, $id))->get();
     }
 
 }

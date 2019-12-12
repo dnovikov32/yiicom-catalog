@@ -192,7 +192,7 @@
         },
 
         created () {
-            this.$store.dispatch('catalog-category/list', this.$route.query.id);
+            this.$store.dispatch('catalog-category/list');
             this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
                 let self = this;
 
@@ -208,7 +208,7 @@
 
         watch: {
             '$route': function () {
-                this.$store.dispatch('catalog-category/list', this.$route.query.id);
+                this.$store.dispatch('catalog-category/list');
                 this.$store.dispatch('catalog-product/find', this.$route.query.id);
             },
             'selectedCategories': function () {

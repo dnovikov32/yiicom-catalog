@@ -141,13 +141,13 @@
         },
 
         created () {
-            this.$store.dispatch('catalog-category/list', this.$route.query.id);
+            this.$store.dispatch('catalog-category/list', { id: this.$route.query.id, root: true });
             this.$store.dispatch('catalog-category/find', this.$route.query.id);
         },
 
         watch: {
             '$route': function () {
-                this.$store.dispatch('catalog-category/list', this.$route.query.id);
+                this.$store.dispatch('catalog-category/list', { id: this.$route.query.id, root: true });
                 this.$store.dispatch('catalog-category/find', this.$route.query.id);
             }
         },
@@ -164,7 +164,7 @@
                     this.$notify({type: 'success', text: 'Категория сохранена'});
 
                     this.$router.push({ path: `/catalog/category/update?id=${this.model.id}` });
-                    this.$store.dispatch('catalog-category/list', this.$route.query.id);
+                    this.$store.dispatch('catalog-category/list', { id: this.$route.query.id, root: true });
                 });
 
             },

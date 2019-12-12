@@ -69,8 +69,8 @@ export default {
                 )
         },
 
-        list ({state, commit, rootState}, id) {
-            return Vue.axios.get('/catalog/api/v1/category/list', { params: { id: id } })
+        list ({state, commit, rootState}, params) {
+            return Vue.axios.get('/catalog/api/v1/category/list', { params: params })
                 .then(
                     response => commit('FETCH_LIST_SUCCESS', response.data),
                     error => {}
