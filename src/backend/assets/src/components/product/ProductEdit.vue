@@ -176,38 +176,16 @@
             },
             categories: function () {
                 return this.$store.getters['catalog-category/list'];
-            },
-            // selectedCategories: {
-            //     get: function () {
-            //         if (! this.model.productCategories) {
-            //             return [];
-            //         }
-            //
-            //         return this.model.productCategories.map(function (value) {
-            //             return value.categoryId;
-            //         });
-            //     },
-            //     // set: function (value) {
-            //     //     // console.log('set', value);
-            //     //     // this.selectedCategories = value;
-            //     //     return value;
-            //     // }
-            // }
+            }
         },
 
         created () {
             this.$store.dispatch('catalog-category/list', this.$route.query.id);
             this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
-                // this.selectedCategories = [];
-
-                // if (this.model.productCategories) {
-                    this.selectedCategories = this.model.productCategories.map(function (value) {
-                        return value.categoryId;
-                    });
-                // }
+                this.selectedCategories = this.model.productCategories.map(function (value) {
+                    return value.categoryId;
+                });
             });
-
-
         },
 
         watch: {
@@ -223,29 +201,10 @@
                         isMain: false
                     };
                 });
-            },
-            // 'model.productCategories': function () {
-
-            // }
+            }
         },
 
         methods: {
-            // changeProductCategories (event) {
-            //     console.log('CHANGE');
-            // },
-            // changeProductCategories(event) {
-            //     let result = event.map(function (value) {
-            //         return {
-            //             productId: 0,
-            //             categoryId: value,
-            //             isMain: false
-            //         };
-            //     });
-            //
-            //     this.model.productCategories = result;
-            //     console.log('this.model.productCategories', this.model.productCategories);
-            //
-            // },
 
             save (event) {
                 event.preventDefault();
