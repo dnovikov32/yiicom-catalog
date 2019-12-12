@@ -96,7 +96,19 @@
                         >
                         </b-form-select>
 
-                        <div>Selected: <strong>{{ selectedCategories }}</strong></div>
+                        <div v-if="this.categories.length && model.productCategories.length" class="yc-product__categories">
+                            <p>Основная категория:</p>
+                            <ul>
+                                <li v-for="(category, index) in model.productCategories" :key="index"
+                                    class="text-primary"
+                                    :class="category.isMain ? 'active' : ''"
+                                    @click="setMainCategory(category.categoryId)"
+                                >
+                                    {{ getCategoryName(category.categoryId) }}
+                                </li>
+                            </ul>
+                        </div>
+
                     </b-form-group>
 
                     <b-form-group
@@ -127,8 +139,7 @@
 
             <b-button type="submit" variant="primary" :disabled="isLoading">Сохранить</b-button>
 
-<!--            <pre v-if="isDev">categories: {{  categories }}</pre>-->
-
+            <pre v-if="isDev">categories: {{  categories }}</pre>
             <pre v-if="isDev">model: {{  model }}</pre>
 
         </b-form>
@@ -151,7 +162,8 @@
 
         data () {
             return {
-                selectedCategories: []
+                selectedCategories: [],
+                mainCategoryId: 0
             };
         },
 
@@ -182,8 +194,14 @@
         created () {
             this.$store.dispatch('catalog-category/list', this.$route.query.id);
             this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
-                this.selectedCategories = this.model.productCategories.map(function (value) {
-                    return value.categoryId;
+                let self = this;
+
+                this.selectedCategories = this.model.productCategories.map(function (item) {
+                    if (item.isMain) {
+                        self.mainCategoryId = item.categoryId;
+                    }
+
+                    return item.categoryId;
                 });
             });
         },
@@ -194,17 +212,52 @@
                 this.$store.dispatch('catalog-product/find', this.$route.query.id);
             },
             'selectedCategories': function () {
+                let self = this;
+                let hasMainCategory = false;
+
                 this.model.productCategories = this.selectedCategories.map(function (value) {
+                    let isMain = false;
+
+                    if (value === self.mainCategoryId) {
+                        hasMainCategory = true;
+                        isMain = true;
+                    }
+
                     return {
                         productId: 0,
                         categoryId: value,
-                        isMain: false
+                        isMain: isMain
                     };
                 });
+
+                if (! hasMainCategory && this.model.productCategories.length) {
+                    this.model.productCategories[0].isMain = true;
+                }
             }
         },
 
         methods: {
+
+            getCategoryName (categoryId) {
+                let category = _.find(this.categories, function (item) {
+                    return item.value === categoryId;
+                });
+
+                return category.text.replace(/\./g, '');
+            },
+
+            setMainCategory (categoryId) {
+                let self = this;
+
+                _.each(this.model.productCategories, function (item) {
+                    if (item.categoryId === categoryId) {
+                        self.mainCategoryId = categoryId;
+                        item.isMain = true;
+                    } else {
+                        item.isMain = false;
+                    }
+                });
+            },
 
             save (event) {
                 event.preventDefault();
