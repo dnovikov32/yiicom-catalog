@@ -27,14 +27,6 @@ use yiicom\catalog\backend\models\CategorySearch;
 			'template' => '{view} {update} {delete}',
 			'controller' => '/#/catalog/category',
             'headerOptions' => ['class' => 'wpx-75'],
-			'buttons' => [
-				'view' => function($url, $model) {
-                    $alias = $model->url->alias ?? null;
-                    $link = $alias ? \Yii::getAlias("@frontendWeb/$alias") : $url;
-
-					return Html::a('<i class="fa fa-eye"></i>', $link, ['target' => 'blank']);
-				}
-			]
         ]
     ]),
 ]); ?>
