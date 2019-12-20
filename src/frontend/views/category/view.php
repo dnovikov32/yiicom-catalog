@@ -165,18 +165,29 @@ $products = json_decode(json_encode($products, false));
 
 foreach ($categoryParents as $parent) {
     $this->params['breadcrumbs'][] = [
-        'label' => Html::encode($parent->title ? $parent->title : $parent->name),
+        'label' => Html::encode($parent->title ?: $parent->name),
         'url' => "/{$parent->url->alias}"
     ];
 }
-$this->params['breadcrumbs'][] = Html::encode($category->title ? $category->title : $category->name);
+$this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->name);
 
 ?>
 
 <h1><?php echo Html::encode($category->title ?: $category->name); ?></h1>
 
 <?php if ($categoryChildren) : ?>
-
+    <div class="category__cats">
+        <p class="cats_s_title">Уточнить категорию:</p>
+        <ul>
+            <?php foreach ($categoryChildren as $clild) : ?>
+                <li>
+                    <a class="cats__link" href="/<?= $clild->url->alias ?>">
+                        <?= Html::encode($clild->title ?: $clild->name) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 <?php endif; ?>
 
 <?php if (! $products) : ?>

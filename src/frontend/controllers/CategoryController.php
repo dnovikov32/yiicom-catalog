@@ -47,6 +47,7 @@ class CategoryController extends Controller
 
         $categoryChildren = $category->children()
             ->withUrl()
+            ->orderBy('left')
             ->all();
         
         $categoryIds = array_merge([$category->id], ArrayHelper::getColumn($categoryChildren, 'id'));
