@@ -69,7 +69,6 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
 			['name', 'string', 'max' => 255],
 
             ['title', 'filter', 'filter' => 'trim'],
-            ['title', 'required'],
             ['title', 'string', 'max' => 255],
 
             ['teaser', 'safe'],
