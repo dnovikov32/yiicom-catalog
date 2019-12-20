@@ -57,11 +57,11 @@ class CategoryController extends ApiController
                 }
             ],
             [
-                'attribute' => 'alias',
-                'class' => UrlAliasColumn::class
+                'attribute' => 'title',
             ],
             [
-                'attribute' => 'title',
+                'attribute' => 'alias',
+                'class' => UrlAliasColumn::class
             ],
             [
                 'attribute' => 'status',

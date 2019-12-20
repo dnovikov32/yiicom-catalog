@@ -28,18 +28,7 @@
                             trim />
                     </b-form-group>
 
-                    <b-form-group
-                        label="Заголовок"
-                        label-for="title"
-                        label-cols-sm="2"
-                    >
-                        <b-form-input
-                            id="title"
-                            type="text"
-                            v-model="model.title"
-                            required
-                            trim />
-                    </b-form-group>
+                    <yc-title-fields :model="model"></yc-title-fields>
 
                     <b-form-group
                         label="Родительская категория"
@@ -96,7 +85,7 @@
 
             <b-button type="submit" variant="primary" :disabled="isLoading">Сохранить</b-button>
 
-            <pre v-if="isDev">model: {{  model }}</pre>
+            <yc-debug :model="model"></yc-debug>
 
         </b-form>
 
@@ -106,20 +95,19 @@
 
 <script>
     // TODO: do something with component import from another module
+    import TitleField from "./../../../../../../../yiicom/src/backend/assets/src/components/form/TitleField.vue";
     import UrlForm from "./../../../../../../../yiicom-content/src/backend/assets/src/components/UrlForm.vue";
     import FilesForm from "./../../../../../../../yiicom-files/src/backend/assets/src/components/FilesForm.vue";
 
     export default {
 
         components: {
+            'yc-title-fields': TitleField,
             UrlForm,
             FilesForm
         },
 
         computed: {
-            isDev: function () {
-                return this.$store.getters['commerce/isDev'];
-            },
             isLoading: function () {
                 return this.$store.getters['commerce/isLoading'];
             },
@@ -153,6 +141,7 @@
         },
 
         methods: {
+
             save (event) {
                 event.preventDefault();
 

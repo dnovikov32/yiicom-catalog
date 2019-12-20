@@ -28,18 +28,7 @@
                             trim />
                     </b-form-group>
 
-                    <b-form-group
-                        label="Заголовок"
-                        label-for="title"
-                        label-cols-sm="2"
-                    >
-                        <b-form-input
-                            id="title"
-                            type="text"
-                            v-model="model.title"
-                            required
-                            trim />
-                    </b-form-group>
+                    <yc-title-fields :model="model"></yc-title-fields>
 
                     <b-form-group
                         label="Цена"
@@ -150,12 +139,14 @@
 
 <script>
     // TODO: do something with component import from another module
+    import TitleField from "./../../../../../../../yiicom/src/backend/assets/src/components/form/TitleField.vue";
     import UrlForm from "./../../../../../../../yiicom-content/src/backend/assets/src/components/UrlForm.vue";
     import FilesForm from "./../../../../../../../yiicom-files/src/backend/assets/src/components/FilesForm.vue";
 
     export default {
 
         components: {
+            'yc-title-fields': TitleField,
             UrlForm,
             FilesForm
         },
