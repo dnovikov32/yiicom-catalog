@@ -118,7 +118,7 @@
 
             </b-card>
 
-            <url-form :model="model.url"></url-form>
+            <url-form :model="model"></url-form>
 
             <files-form
                 :models.sync="model.files"
@@ -128,8 +128,7 @@
 
             <b-button type="submit" variant="primary" :disabled="isLoading">Сохранить</b-button>
 
-            <pre v-if="isDev">categories: {{  categories }}</pre>
-            <pre v-if="isDev">model: {{  model }}</pre>
+            <yc-debug :model="model"></yc-debug>
 
         </b-form>
 
@@ -159,9 +158,6 @@
         },
 
         computed: {
-            isDev: function () {
-                return this.$store.getters['commerce/isDev'];
-            },
             isLoading: function () {
                 return this.$store.getters['commerce/isLoading'];
             },
