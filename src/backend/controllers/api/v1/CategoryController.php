@@ -9,7 +9,6 @@ use yiicom\backend\base\ApiController;
 use yiicom\common\traits\ModelTrait;
 use yiicom\content\common\grid\UrlAliasColumn;
 use yiicom\catalog\common\models\Category;
-use yiicom\catalog\common\models\CategoryFinder;
 use yiicom\catalog\common\category\CategoryList;
 use yiicom\catalog\backend\models\CategorySearch;
 use yiicom\catalog\backend\forms\CategoryForm;
@@ -80,7 +79,7 @@ class CategoryController extends ApiController
             $model = $this->findOrNewModel(CategoryForm::class, $id);
 
             if ($model->isNewRecord) {
-                $model->parentId = (new CategoryFinder)->findRoot()->id ?? null;
+                $model->parentId = Category::find()->roots()->one()->id ?? null;
             }
 
             return $model;

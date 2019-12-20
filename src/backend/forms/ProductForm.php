@@ -3,7 +3,6 @@
 namespace yiicom\catalog\backend\forms;
 
 use yiicom\catalog\common\models\Product;
-use yiicom\catalog\common\models\CategoryFinder;
 
 class ProductForm extends Product
 {

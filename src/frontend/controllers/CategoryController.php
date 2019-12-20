@@ -3,12 +3,12 @@
 namespace yiicom\catalog\frontend\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yiicom\common\base\Controller;
 use yiicom\content\common\models\Page;
 use yiicom\content\frontend\traits\SitePageTrait;
 use yiicom\catalog\common\models\Category;
-use yiicom\catalog\common\models\CategoryFinder;
 use yiicom\catalog\common\models\Product;
 //use app\modules\attribute\models\Attribute;
 
@@ -35,31 +35,32 @@ class CategoryController extends Controller
 	{
 	    /** @var Category $category */
         $category = $this->loadModel(Category::class, $id);
-        $categoryChildrenIds = (new CategoryFinder())->findChildren($category)->ids();
-        $categoryIds = array_merge([$category->id], $categoryChildrenIds);
 
-//        echo '<pre>'; print_r( (new CategoryFinder())->findChildren($category)->all() );echo '</pre>';exit;
+        $categoryRoot = Category::find()
+            ->withUrl()
+            ->roots()
+            ->one();
 
-        echo '<pre>current '; print_r($category->id);echo '</pre>';
-        echo '<pre>child: '; print_r($categoryChildrenIds);echo '</pre>';
-
-        echo '<pre>all: '; print_r(array_merge([$category->id], $categoryChildrenIds));echo '</pre>';
-        exit;
-        $products = (new ProductFinder())
-            ->findByCategory($categoryIds)
+        $categoryParents = $category->parents()
+            ->orderBy('level')
             ->all();
 
-
-//        $products = Product::find()
-//            ->byCategory($categoryIds)
-//            ->all();
-
-		$products = Product::getProducts([
-			'categoryId' => $category->getAllChildIds(),
-		]);
+        $categoryChildren = $category->children()
+            ->withUrl()
+            ->all();
+        
+        $categoryIds = array_merge([$category->id], ArrayHelper::getColumn($categoryChildren, 'id'));
+        
+        $products = Product::find()
+            ->category($categoryIds)
+            ->active()
+            ->all();
 
 		return $this->render('view', [
 			'category' => $category,
+            'categoryRoot' => $categoryRoot,
+			'categoryChildren' => $categoryChildren,
+			'categoryParents' => $categoryParents,
 			'products' => $products,
 //			'attributes' => Attribute::getList(),
 		]);

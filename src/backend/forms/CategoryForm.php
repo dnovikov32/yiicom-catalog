@@ -3,7 +3,6 @@
 namespace yiicom\catalog\backend\forms;
 
 use yiicom\catalog\common\models\Category;
-use yiicom\catalog\common\models\CategoryFinder;
 
 class CategoryForm extends Category
 {
@@ -20,7 +19,7 @@ class CategoryForm extends Category
      */
     public function process()
     {
-        $root = (new CategoryFinder)->findRoot();
+        $root = Category::find()->roots()->one();
 
         if (! $root) {
             return $this->makeRoot();
