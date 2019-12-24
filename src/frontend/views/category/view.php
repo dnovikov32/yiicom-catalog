@@ -175,18 +175,24 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
 
 <h1><?php echo Html::encode($category->title ?: $category->name); ?></h1>
 
+<?php if ($category->teaser) : ?>
+    <div class="category__teaser">
+        <?= $category->teaser ?>
+    </div>
+<?php endif; ?>
+
 <?php if ($categoryChildren) : ?>
-    <div class="category__cats">
-        <p class="cats_s_title">Уточнить категорию:</p>
-        <ul>
+    <div class="cat-list category__categories">
+        <p>Уточнить категорию:</p>
+        <dic class="row">
             <?php foreach ($categoryChildren as $clild) : ?>
-                <li>
-                    <a class="cats__link" href="/<?= $clild->url->alias ?>">
+                <div class="category__category">
+                    <a class="" href="/<?= $clild->url->alias ?>">
                         <?= Html::encode($clild->title ?: $clild->name) ?>
                     </a>
-                </li>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </dic>
     </div>
 <?php endif; ?>
 
@@ -196,7 +202,7 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
 
 <?php else : ?>
 
-    <div class="row">
+    <div class="row category__products">
 
         <?php foreach ($products as $product) : ?>
 
@@ -245,3 +251,10 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
     </div>
 
 <?php endif ?>
+
+
+<?php if ($category->body) : ?>
+    <div class="category__body">
+        <?= $category->body ?>
+    </div>
+<?php endif; ?>
