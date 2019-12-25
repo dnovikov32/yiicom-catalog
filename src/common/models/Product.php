@@ -37,6 +37,8 @@ use yiicom\files\common\models\File;
  *
  * @property ProductCategory[] $productCategories
  * @property Category[] $categoies
+ * @property Category $category Main category
+ * @property File[] $files
  */
 class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelations, ModelPageUrl
 {

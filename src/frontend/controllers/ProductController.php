@@ -17,8 +17,23 @@ class ProductController extends Controller
 	    /** @var Product $product */
         $product = $this->loadModel(Product::class, $id);
 
+        $category = $product->category;
+
+        $categoryParents = $category->parents()
+            ->orderBy('level')
+            ->all();
+
+        $images = $product->files;
+            
+            
+            
+//        echo '<pre>$images'; print_r($images);echo '</pre>';
+
 		return $this->render('view', [
 			'product' => $product,
+            'images' => $images,
+            'category' => $category,
+            'categoryParents' => $categoryParents
 		]);
 	}
 

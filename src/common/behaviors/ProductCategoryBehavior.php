@@ -58,8 +58,22 @@ class ProductCategoryBehavior extends Behavior
         
         return $owner->hasMany(Category::class, ['categoryId' => 'id'])
             ->via('productCategories');
-//            ->orderBy(['product_categories.position' => SORT_ASC]);
 	}
+
+    /**
+     * Returns main category
+     * @return ActiveQuery
+     */
+	public function getCategory()
+    {
+        /* @var Product $owner */
+        $owner = $this->owner;
+
+        return $owner->hasOne(Category::class, ['id' => 'categoryId'])
+            ->via('productCategories', function (ActiveQuery $query) {
+                $query->andWhere(['isMain' => true]);
+            });
+    }
 
     /**
      * @return bool

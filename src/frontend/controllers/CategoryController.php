@@ -36,11 +36,6 @@ class CategoryController extends Controller
 	    /** @var Category $category */
         $category = $this->loadModel(Category::class, $id);
 
-        $categoryRoot = Category::find()
-            ->withUrl()
-            ->roots()
-            ->one();
-
         $categoryParents = $category->parents()
             ->orderBy('level')
             ->all();
@@ -59,7 +54,6 @@ class CategoryController extends Controller
 
 		return $this->render('view', [
 			'category' => $category,
-            'categoryRoot' => $categoryRoot,
 			'categoryChildren' => $categoryChildren,
 			'categoryParents' => $categoryParents,
 			'products' => $products,
