@@ -25,7 +25,7 @@ class ProductCategoryBehavior extends Behavior
 		return [
 			ActiveRecord::EVENT_AFTER_INSERT => 'afterSave',
 			ActiveRecord::EVENT_AFTER_UPDATE => 'afterSave',
-			ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
+			ActiveRecord::EVENT_BEFORE_DELETE => 'beforeDelete',
 		];
 	}
 	
@@ -113,12 +113,19 @@ class ProductCategoryBehavior extends Behavior
 		return true;
 	}
 
-	public function afterDelete()
+    /**
+     * @return bool
+     */
+	public function beforeDelete()
 	{
-		foreach($this->owner->{$this->attribute} as $model) {
-		    /* @var ProductCategory $model */
-            $model->delete();
+        $result = true;
+
+		foreach($this->getProductCategories()->each() as $productCategory) {
+		    /* @var ProductCategory $productCategory */
+            $result = $productCategory->delete() && $result;
 		}
+
+		return $result;
 	}
 
 }
