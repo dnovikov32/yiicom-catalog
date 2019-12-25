@@ -9,7 +9,7 @@ class CategoryForm extends Category
     /**
      * @return string
      */
-    public function modelClass()
+    public function getModelClass()
     {
         return Category::class;
     }

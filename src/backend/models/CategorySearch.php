@@ -20,7 +20,7 @@ class CategorySearch extends Category implements SearchModelInterface
     /**
      * @return string
      */
-    public function modelClass()
+    public function getModelClass()
     {
         return Category::class;
     }

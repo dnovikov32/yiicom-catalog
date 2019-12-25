@@ -9,7 +9,7 @@ class ProductForm extends Product
     /**
      * @return string
      */
-    public function modelClass()
+    public function getModelClass()
     {
         return Product::class;
     }

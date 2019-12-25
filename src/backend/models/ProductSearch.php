@@ -21,7 +21,7 @@ class ProductSearch extends Product implements SearchModelInterface
     /**
      * @return string
      */
-    public function modelClass()
+    public function getModelClass()
     {
         return Product::class;
     }
