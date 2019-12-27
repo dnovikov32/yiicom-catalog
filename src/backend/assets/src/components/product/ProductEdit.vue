@@ -118,6 +118,8 @@
 
             </b-card>
 
+            <attribute-form :model="model"></attribute-form>
+
             <url-form :model="model"></url-form>
 
             <files-form
@@ -141,13 +143,15 @@
     import TitleField from "./../../../../../../../yiicom/src/backend/assets/src/components/form/TitleField.vue";
     import UrlForm from "./../../../../../../../yiicom-content/src/backend/assets/src/components/UrlForm.vue";
     import FilesForm from "./../../../../../../../yiicom-files/src/backend/assets/src/components/FilesForm.vue";
+    import AttributeForm from '../AttributeForm.vue';
 
     export default {
 
         components: {
             'yc-title-fields': TitleField,
             UrlForm,
-            FilesForm
+            FilesForm,
+            AttributeForm
         },
 
         data () {

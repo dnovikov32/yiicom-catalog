@@ -16,6 +16,7 @@ use yiicom\common\helpers\BooleanHelper;
 use yiicom\catalog\common\models\ProductQuery;
 use yiicom\catalog\common\models\ProductCategory;
 use yiicom\catalog\common\behaviors\ProductCategoryBehavior;
+use yiicom\catalog\common\behaviors\ProductAttributeBehavior;
 use yiicom\content\common\behaviors\PageUrlBehavior;
 use yiicom\content\common\interfaces\ModelPageUrl;
 use yiicom\content\common\models\PageUrl;
@@ -135,6 +136,9 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
             'ProductCategoryBehavior' => [
                 'class' => ProductCategoryBehavior::class,
             ],
+            'ProductAttributeBehavior' => [
+                'class' => ProductAttributeBehavior::class,
+            ]
         ]);
     }
 
@@ -178,6 +182,7 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
             'productCategories',
             'url',
             'files',
+            'attributeValues'
         ];
     }
 }

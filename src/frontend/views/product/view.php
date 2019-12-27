@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                 <?php echo ImageWidget::widget([
                     'images' => $images[0],
                     'preset' => '560x360',
-                    'linkPreset' => '1200x600',
+                    'linkPreset' => '1200x900',
                     'linkOptions' => ['data-toggle' => 'lightbox', 'data-gallery' => 'product']
                 ]); ?>
             <?php endif; ?>
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                     'from' => 1,
                     'preset' => '100x100',
                     'dataPreset' => '560x360',
-                    'linkPreset' => '1200x600',
+                    'linkPreset' => '1200x900',
                     'linkOptions' => [
                         'class' => 'product__img-link',
                         'data-toggle' => 'lightbox',

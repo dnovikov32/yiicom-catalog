@@ -2,6 +2,8 @@
 
 namespace yiicom\catalog\backend;
 
+use yiicom\catalog\common\models\Attribute;
+
 class Module extends \yiicom\catalog\common\Module
 {
     /**
@@ -9,7 +11,15 @@ class Module extends \yiicom\catalog\common\Module
      */
     public function settings()
     {
-        return [];
+        $settings = [
+            'catalog' => [
+                'attributes' => [
+                    'typesList' => (new Attribute)->typesList()
+                ],
+            ],
+        ];
+
+        return $settings;
     }
 
     /**
@@ -30,6 +40,16 @@ class Module extends \yiicom\catalog\common\Module
                 [
                     'label' => 'Категории',
                     'url' => '/catalog/category/index',
+                    'icon' => 'fa fa-list',
+                ],
+                [
+                    'label' => 'Атрибуты',
+                    'url' => '/catalog/attribute/index',
+                    'icon' => 'fa fa-list',
+                ],
+                [
+                    'label' => 'Группы атрибутов',
+                    'url' => '/catalog/attribute-group/index',
                     'icon' => 'fa fa-list',
                 ]
             ]
