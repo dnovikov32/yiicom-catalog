@@ -181,22 +181,16 @@
         created () {
             this.$store.dispatch('catalog-category/list');
             this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
-                let self = this;
-
-                this.selectedCategories = this.model.productCategories.map(function (item) {
-                    if (item.isMain) {
-                        self.mainCategoryId = item.categoryId;
-                    }
-
-                    return item.categoryId;
-                });
+                this.initSelectedCategories();
             });
         },
 
         watch: {
             '$route': function () {
                 this.$store.dispatch('catalog-category/list');
-                this.$store.dispatch('catalog-product/find', this.$route.query.id);
+                this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
+                    this.initSelectedCategories();
+                });
             },
             'selectedCategories': function () {
                 let self = this;
@@ -224,6 +218,17 @@
         },
 
         methods: {
+            initSelectedCategories () {
+                let self = this;
+
+                this.selectedCategories = this.model.productCategories.map(function (item) {
+                    if (item.isMain) {
+                        self.mainCategoryId = item.categoryId;
+                    }
+
+                    return item.categoryId;
+                });
+            },
 
             getCategoryName (categoryId) {
                 let category = _.find(this.categories, function (item) {
