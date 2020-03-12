@@ -56,7 +56,7 @@ class ProductCategoryBehavior extends Behavior
         /* @var Product $owner */
         $owner = $this->owner;
         
-        return $owner->hasMany(Category::class, ['categoryId' => 'id'])
+        return $owner->hasMany(Category::class, ['id' => 'categoryId'])
             ->via('productCategories');
 	}
 

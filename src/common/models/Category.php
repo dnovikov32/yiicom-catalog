@@ -37,6 +37,9 @@ use yiicom\files\common\models\File;
  * @property string $updatedAt
  *
  * @property Category $parent
+ *
+ * @method ActiveQuery parents() NestedSetsBehavior
+ * @method ActiveQuery children() NestedSetsBehavior
  */
 class Category extends ActiveRecord implements ModelStatus, ModelList, ModelRelations, ModelPageUrl
 {

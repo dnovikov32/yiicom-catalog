@@ -19,7 +19,7 @@ class CategoryQuery extends ActiveQuery
 	}
 
     /**
-     * @return CategoryQuery
+     * @return self
      */
     public function withUrl()
     {
