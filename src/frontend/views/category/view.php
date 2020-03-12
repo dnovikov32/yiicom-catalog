@@ -59,22 +59,22 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
 
         <?php foreach ($products as $product) : ?>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 product">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 product-card">
 
-                <a class="product__title" href="/<?= $product->url->alias ?>"><?= Html::encode($product->title) ?></a>
+                <a class="product-card__title" href="/<?= $product->url->alias ?>"><?= Html::encode($product->title) ?></a>
 
-                <div class="row product__desc">
+                <div class="row product-card__desc">
 
                     <div class="col-md-6 col-xs-6 col-12">
-                        <a class="product__image" href="/<?= $product->url->alias ?>">
+                        <a class="product-card__image" href="/<?= $product->url->alias ?>">
                             <?php if (isset($product->files[0])) : ?>
                                 <?php echo ImageWidget::widget([
                                     'images' => $product->files[0],
-                                    'options' => ['class' => 'product__img'],
+                                    'options' => ['class' => 'product-card__img'],
                                     'preset' => '265x208',
 //                                    'linkPreset' => '1200x900',
 //                                    'linkOptions' => [
-//                                        'class' => 'product__image',
+//                                        'class' => 'product-card__image',
 //                                        'data-toggle' => 'lightbox',
 //                                        'data-gallery' => 'product'
 //                                    ]
@@ -84,11 +84,11 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                     </div>
 
                     <div class="col-md-6 col-xs-6 col-12">
-                        <ul class="product__attrs">
+                        <ul class="product-card__attrs">
                             <?php foreach ($attributes as $attributeGroup) : ?>
                                 <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
                                     <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
-                                        <li class="product__attr">
+                                        <li class="product-card__attr">
                                             <span><?= $attribute['title'] ?></span>:
                                             <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
                                         </li>
@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                             <?php endforeach; ?>
                         </ul>
 
-                        <a class="product__link" href="/<?= $product->url->alias ?>">Подробнее</a>
+                        <a class="product-card__link" href="/<?= $product->url->alias ?>">Подробнее</a>
                     </div>
 
                 </div>
@@ -105,11 +105,11 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                 <div class="row">
 
                     <div class="col-md-6 col-xs-12">
-                        <div class="product__price">от <span>3000</span> руб/час</div>
+                        <div class="product-card__price">от <span>3000</span> руб/час</div>
                     </div>
 
                     <div class="col-md-6 col-xs-12">
-                        <a class="btn btn-primary btn-lg product__btn-rent" href="#">Арендовать</a>
+                        <a class="btn btn-primary btn-lg product-card__btn-rent" href="#">Арендовать</a>
                     </div>
 
                 </div>
