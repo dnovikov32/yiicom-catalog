@@ -16,7 +16,7 @@ class m191227_113753_catalog_create_table_attribute extends Migration
             'type' => $this->tinyInteger(2)->defaultValue(0),
             'groupId' => $this->integer(),
             'position' => $this->tinyInteger(3)->defaultValue(0),
-            'isShowInCategory' => $this->boolean()->defaultValue(false),
+            'isShowInCard' => $this->boolean()->defaultValue(false),
             'isShowInProduct' => $this->boolean()->defaultValue(false),
         ], 'ENGINE=InnoDB CHARSET=utf8');
 

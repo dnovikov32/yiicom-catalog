@@ -67,6 +67,15 @@ export default {
                     response => commit('DELETE_MODEL_SUCCESS', response.data),
                     error => {}
                 )
+        },
+
+        list ({state, commit, rootState}, params) {
+            return Vue.axios.get('/catalog/api/v1/attribute/list', { params: params })
+                .then(
+                    response => commit('FETCH_LIST_SUCCESS', response.data),
+                    error => {}
+                )
         }
+
     }
 };

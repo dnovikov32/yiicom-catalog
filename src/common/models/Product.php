@@ -40,6 +40,7 @@ use yiicom\files\common\models\File;
  * @property Category[] $categoies
  * @property Category $category Main category
  * @property File[] $files
+ * @property AttributeValue $attributeValue From yiicom\catalog\common\behaviors\ProductAttributeBehavior
  */
 class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelations, ModelPageUrl
 {
@@ -162,6 +163,10 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
                 'attribute' => 'files',
                 'multiple' => true,
             ],
+            'AttributeValue' => [
+                'class' => AttributeValue::class,
+                'attribute' => 'attributeValue',
+            ],
         ];
     }
 
@@ -182,7 +187,7 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
             'productCategories',
             'url',
             'files',
-            'attributeValues'
+            'attributeValue',
         ];
     }
 }

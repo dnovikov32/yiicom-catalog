@@ -118,7 +118,7 @@
 
             </b-card>
 
-            <attribute-form :model="model"></attribute-form>
+            <attribute-form :model.sync="model.attributeValue"></attribute-form>
 
             <url-form :model="model"></url-form>
 
@@ -184,6 +184,7 @@
 
         created () {
             this.$store.dispatch('catalog-category/list');
+            this.$store.dispatch('catalog-attribute/list');
             this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
                 this.initSelectedCategories();
             });
@@ -192,6 +193,7 @@
         watch: {
             '$route': function () {
                 this.$store.dispatch('catalog-category/list');
+                this.$store.dispatch('catalog-attribute/list');
                 this.$store.dispatch('catalog-product/find', this.$route.query.id).then(() => {
                     this.initSelectedCategories();
                 });

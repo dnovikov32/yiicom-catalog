@@ -1,7 +1,7 @@
 <template>
 
     <b-card
-        v-if="model"
+        v-if="attributeValues.value"
         class="mb-4"
         :header="title"
         header-class="text-white bg-secondary"
@@ -10,7 +10,49 @@
 
         <b-card-body>
 
-            <div>Attributes</div>
+            <div v-for="(group, groupIndex) in attributes">
+                <h6 v-if="group.title">{{ group.title }}</h6>
+                <h6 v-else>Без группы</h6>
+
+                <ul class="list-unstyled">
+                    <li v-for="(attr, attrIndex) in group.attributes">
+                        <b-form-checkbox v-if="attr.type == 1"
+                             :id="'attribute_' + attr.id"
+                             v-model="attributeValues.value[attr.id]"
+                             value="1"
+                             unchecked-value="0">
+                            {{ attr.title }}
+                        </b-form-checkbox>
+
+                        <b-form-group v-if="attr.type == 2"
+                            class="mb-1"
+                            :label="attr.title"
+                            :label-for="'attribute_' + attr.id"
+                            label-cols-sm="2"
+                        >
+                            <b-form-input
+                                  :id="'attribute_' + attr.id"
+                                  class="col-2"
+                                  type="number"
+                                  v-model="attributeValues.value[attr.id]" />
+                        </b-form-group>
+
+                        <b-form-group v-if="attr.type == 3"
+                            class="mb-1"
+                            :label="attr.title"
+                            :label-for="'attribute_' + attr.id"
+                            label-cols-sm="2"
+                        >
+                            <b-form-input
+                                  :id="'attribute_' + attr.id"
+                                  class="col-6"
+                                  type="text"
+                                  v-model="attributeValues.value[attr.id]" />
+                        </b-form-group>
+
+                    </li>
+                </ul>
+            </div>
 
         </b-card-body>
 
@@ -19,6 +61,7 @@
 </template>
 
 <script>
+
     export default {
 
         props: {
@@ -27,43 +70,31 @@
                 default: 'Атрибуты'
             },
             model: {
-                type: Object,
+                type: [Object],
                 default: function () {
                     return {};
                 }
             }
         },
 
-        data () {
-            return {
+        computed: {
+            attributeValues: {
+                get () {
+                    return this.model;
+                },
+                set (value) {
+                    this.$emit('update:model', value);
+                }
+            },
+            attributes: function () {
+                return this.$store.getters['catalog-attribute/list'];
             }
         },
-
-        // computed: {
-        //     attributes: {
-        //         get () {
-        //             return this.model.attributes;
-        //         },
-        //         set (value) {
-        //             this.$emit('update:model.attributes', value);
-        //         }
-        //     },
-        //     settings () {
-        //         return this.$store.getters['commerce/settings'];
-        //     }
-        // },
 
         watch: {
             model (model) {
                 this.model = model;
             }
-        },
-
-        methods: {
-
-
-
-
         }
 
     }

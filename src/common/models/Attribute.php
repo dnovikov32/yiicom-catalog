@@ -15,8 +15,10 @@ use yiicom\common\traits\ModelStatusTrait;
  * @property integer $groupId
  * @property integer $type
  * @property integer $position
- * @property boolean $isShowInCategory
+ * @property boolean $isShowInCard
  * @property boolean $isShowInProduct
+ *
+ * @property AttributeGroup $group
  */
 class Attribute extends ActiveRecord implements ModelStatus, ModelList
 {
@@ -24,7 +26,8 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
 
     const TYPE_CHECKBOX = 1;
     const TYPE_INT = 2;
-    
+    const TYPE_STR = 3;
+
     /**
      * @inheritDoc
      */
@@ -38,11 +41,12 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
     public function typesList()
     {
         return [
-            self::TYPE_CHECKBOX => 'Выбор значения',
-            self::TYPE_INT => 'Числовое значение'
+            self::TYPE_CHECKBOX => 'Флажок',
+            self::TYPE_INT => 'Число',
+            self::TYPE_STR => 'Текст'
         ];
     }
-	
+
     /**
      * @inheritDoc
      */
@@ -53,7 +57,7 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
             ['name', 'required'],
             ['name', 'string', 'max' => 255],
             ['name', 'match', 'pattern' => '/^[\w\-\_]+$/', 'message' => '{attribute}: доступны только латинские буквы, символ "-" и "_"'],
-            
+
 			['title', 'filter', 'filter' => 'trim'],
 			['title', 'required'],
 			['title', 'string', 'max' => 255],
@@ -62,13 +66,13 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
 
             ['type', 'required'],
             ['type', 'in', 'range' => array_keys($this->typesList())],
-            
+
 			['position', 'integer'],
 			['position', 'default', 'value' => 0],
-            
-            ['isShowInCategory', 'boolean'],
+
+            ['isShowInCard', 'boolean'],
             ['isShowInProduct', 'default', 'value' => false],
-            
+
             ['isShowInProduct', 'boolean'],
             ['isShowInProduct', 'default', 'value' => false],
 		];
@@ -86,7 +90,7 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
             'type' => Yii::t('yiicom', 'Type'),
             'groupId' => Yii::t('yiicom', 'Group'),
             'position' => Yii::t('yiicom', 'Position'),
-            'isShowInCategory' => Yii::t('yiicom', 'Show in categories'),
+            'isShowInCard' => Yii::t('yiicom', 'Show in categories'),
             'isShowInProduct' => Yii::t('yiicom', 'Show in product card'),
 		];
 	}
@@ -103,9 +107,16 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
             'type',
             'groupId',
             'position',
-            'isShowInCategory',
+            'isShowInCard',
             'isShowInProduct',
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getGroup()
+    {
+        return $this->hasOne(AttributeGroup::class, ['id' => 'groupId']);
+    }
 }

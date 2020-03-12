@@ -26,7 +26,7 @@ class AttributeSearch extends Attribute implements SearchModelInterface
     public function rules()
     {
         return [
-            [['id', 'groupId', 'type', 'position', 'isShowInCategory', 'isShowInProduct'], 'integer'],
+            [['id', 'groupId', 'type', 'position', 'isShowInCard', 'isShowInProduct'], 'integer'],
 
             [['name', 'title'], 'safe'],
         ];
@@ -63,7 +63,7 @@ class AttributeSearch extends Attribute implements SearchModelInterface
             '{{%catalog_attribute}}.position' => $this->position,
             '{{%catalog_attribute}}.groupId' => $this->groupId,
             '{{%catalog_attribute}}.type' => $this->type,
-            '{{%catalog_attribute}}.isShowInCategory' => $this->isShowInCategory,
+            '{{%catalog_attribute}}.isShowInCard' => $this->isShowInCard,
             '{{%catalog_attribute}}.isShowInProduct' => $this->isShowInProduct,
         ]);
 

@@ -17,7 +17,7 @@ class AttributeValue extends ActiveRecord
      */
 	public static function tableName()
 	{
-		return '{{%catalog_products_categories}}';
+		return '{{%catalog_attribute_value}}';
 	}
     
     /**
@@ -26,12 +26,23 @@ class AttributeValue extends ActiveRecord
 	public function rules()
 	{
 		return [
-            ['productId', 'required'],
 			['productId', 'integer'],
 
-            ['value', 'string'],
+            ['value', 'safe'],
 		];
 	}
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('yiicom', 'ID'),
+            'productId' => Yii::t('yiicom', 'Product ID'),
+            'value' => Yii::t('yiicom', 'Value'),
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -39,9 +50,13 @@ class AttributeValue extends ActiveRecord
     public function fields()
     {
         return [
-            'id' => Yii::t('yiicom', 'ID'),
-            'productId' => Yii::t('yiicom', 'Product ID'),
-            'value' => Yii::t('yiicom', 'Value'),
+            'id',
+            'productId',
+            'value' => function ($model) {
+                // TODO: (shame) an empty property (['' => null]) is added so that when converting to json,
+                // an object is returned rather than an array
+                return $model->value ? $model->value : ['' => null];
+            },
         ];
     }
 }

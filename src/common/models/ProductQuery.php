@@ -8,7 +8,27 @@ use yiicom\common\interfaces\ModelStatus;
 class ProductQuery extends ActiveQuery
 {
     /**
-     * @return $this
+     * @return self
+     */
+    public function withUrl()
+    {
+        $this->joinWith(['url']);
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function withFiles()
+    {
+        $this->joinWith(['files']);
+
+        return $this;
+    }
+
+    /**
+     * @return self
      */
     public function active()
     {
@@ -18,13 +38,13 @@ class ProductQuery extends ActiveQuery
     }
 
     /**
-     * @return $this
+     * @return self
      */
     public function category($ids = [])
     {
         $ids = (array) $ids;
 
-        $this->joinWith(['productCategories'])
+        $this->joinWith(['categories'])
             ->andWhere(['IN', '{{%catalog_products_categories}}.categoryId', $ids]);
 
         return $this;

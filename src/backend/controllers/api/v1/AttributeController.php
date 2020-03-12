@@ -10,6 +10,7 @@ use yiicom\common\traits\ModelTrait;
 use yiicom\catalog\common\models\Attribute;
 use yiicom\catalog\common\models\AttributeGroup;
 use yiicom\catalog\backend\models\AttributeSearch;
+use yiicom\catalog\common\lists\AttributeList;
 
 class AttributeController extends ApiController
 {
@@ -132,6 +133,11 @@ class AttributeController extends ApiController
         } catch (\Throwable $e) {
             throw new ServerErrorHttpException(Yii::t("yiicom", "Server error: ") . $e->getMessage());
         }
+    }
+
+    public function actionList(bool $root = false, int $id = null)
+    {
+        return (new AttributeList())->get();
     }
 
 }

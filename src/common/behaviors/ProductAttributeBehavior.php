@@ -3,8 +3,10 @@
 namespace yiicom\catalog\common\behaviors;
 
 use yii\base\Behavior;
+use yii\base\Exception;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yiicom\catalog\common\models\Product;
 use yiicom\catalog\common\models\AttributeValue;
 
 class ProductAttributeBehavior extends Behavior
@@ -12,7 +14,7 @@ class ProductAttributeBehavior extends Behavior
     /**
      * @var string
      */
-    public $attribute = 'attributeValues';
+    public $attribute = 'attributeValue';
 
     /**
      * @inheritdoc
@@ -29,50 +31,33 @@ class ProductAttributeBehavior extends Behavior
     /**
      * @return ActiveQuery
      */
-	public function getAttributeValues()
+	public function getAttributeValue()
 	{
 	    /** @var Product $owner */
 	    $owner = $this->owner;
 
-		return $this->owner->hasOne(AttributeValue::className(), ['productId' => 'id']);
+		return $this->owner->hasOne(AttributeValue::class, ['productId' => 'id']);
 	}
-
-    /**
-     * @param $value
-     */
-	public function setAttributeValues($value)
-	{
-		$this->owner->{$this->attribute} = $value;
-	}
-//
-//
-//	public function getAttrsList()
-//	{
-//		return ArrayHelper::index($this->owner->attrs, 'attributeId');
-//	}
 
 	public function afterSave()
 	{
-	    echo '<pre>attribute'; print_r($this->owner->{$this->attribute});echo '</pre>';
-	    exit;
-
-		$attrs = [
-		    1 => 12,
-            2 => 1,
-            3 => 'ололол'
-        ];
-//
-		foreach($this->owner->{$this->attribute} as $id => $attr) {
-			$attrs[$attr->attributeId] = (int)$attr->value;
-		}
-
         /** @var Product $owner */
-	    $owner = $this->owner;
+        $owner = $this->owner;
+        $values = array_filter($this->owner->{$this->attribute}->value);
 
-		if ($attrs) {
-            AttributeValue::updateAll(['value' => json_encode($attrs, JSON_UNESCAPED_UNICODE)], ['productId' => $owner->id]);
-		}
+        AttributeValue::deleteAll('productId = :productId', [':productId' => $owner->id]);
 
+        if (! $values) {
+            return;
+        }
+
+        $model = new AttributeValue();
+        $model->productId = $owner->id;
+        $model->value = $values;
+
+        if (! $model->save()) {
+            throw new Exception("Can't save AttributeValue model: " . implode(', ', $model->getFirstErrors()));
+        }
 	}
 
     /**
@@ -82,7 +67,7 @@ class ProductAttributeBehavior extends Behavior
      */
     public function beforeDelete()
     {
-        $attributeValue = $this->getAttributeValues()->one();
+        $attributeValue = $this->getAttributeValue()->one();
 
         return $attributeValue->delete();
     }

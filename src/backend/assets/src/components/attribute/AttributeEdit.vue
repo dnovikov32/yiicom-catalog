@@ -83,6 +83,32 @@
                             trim />
                     </b-form-group>
 
+                    <b-form-group
+                        label-cols-sm="2"
+                    >
+                        <b-form-checkbox
+                            id="isShowInCard"
+                            v-model="model.isShowInCard"
+                            value="1"
+                            unchecked-value="0"
+                        >
+                            Показать в каталоге
+                        </b-form-checkbox>
+                    </b-form-group>
+
+                    <b-form-group
+                        label-cols-sm="2"
+                    >
+                        <b-form-checkbox
+                            id="isShowInProduct"
+                            v-model="model.isShowInProduct"
+                            value="1"
+                            unchecked-value="0"
+                        >
+                            Показать на странице товара
+                        </b-form-checkbox>
+                    </b-form-group>
+
                 </b-card-body>
 
             </b-card>
