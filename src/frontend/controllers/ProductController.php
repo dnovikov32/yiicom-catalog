@@ -7,6 +7,7 @@ use yii\web\NotFoundHttpException;
 use yiicom\common\base\Controller;
 use yiicom\content\frontend\traits\SitePageTrait;
 use yiicom\catalog\common\models\Product;
+use yiicom\catalog\common\lists\AttributeList;
 
 class ProductController extends Controller
 {
@@ -24,16 +25,15 @@ class ProductController extends Controller
             ->all();
 
         $images = $product->files;
-            
-            
-            
-//        echo '<pre>$images'; print_r($images);echo '</pre>';
+
+        $attributes = (new AttributeList())->filter(['isShowInProduct' => true])->get();
 
 		return $this->render('view', [
 			'product' => $product,
             'images' => $images,
             'category' => $category,
-            'categoryParents' => $categoryParents
+            'categoryParents' => $categoryParents,
+            'attributes' => $attributes,
 		]);
 	}
 

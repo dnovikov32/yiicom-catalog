@@ -13,6 +13,7 @@ use yiicom\files\common\widgets\ImageWidget;
  * @var File[] $images
  * @var Category $category
  * @var Category[] $categoryParents
+ * @var array $attributes
  */
 
 foreach ($categoryParents as $parent) {
@@ -63,8 +64,24 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                 ]); ?>
             </div>
         <?php endif; ?>
-        
-        
+
+    </div>
+
+    <div class="col-md-6">
+
+        <ul class="product__attrs">
+            <?php foreach ($attributes as $attributeGroup) : ?>
+                <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
+                    <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                        <li class="product__attr">
+                            <span><?= $attribute['title'] ?></span>:
+                            <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </ul>
+
     </div>
 </div>
 
@@ -78,7 +95,7 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
 
 
 <?php if ($product->body) : ?>
-    <div class="product__body">
+    <div class="product-card__body">
         <?= $product->body ?>
     </div>
 <?php endif; ?>
