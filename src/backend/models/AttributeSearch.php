@@ -33,6 +33,17 @@ class AttributeSearch extends Attribute implements SearchModelInterface
     }
 
     /**
+     * @return ActiveQuery
+     */
+    protected function prepareQuery()
+    {
+        $query = static::find();
+        $query->joinWith('group');
+
+        return $query;
+    }
+
+    /**
      * @param ActiveQuery $query
      * @return ActiveDataProvider
      */
@@ -41,6 +52,12 @@ class AttributeSearch extends Attribute implements SearchModelInterface
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
+                'attributes' => [
+                    'position' => [
+                        'asc' => ['{{%catalog_attribute_group}}.position' => SORT_ASC, '{{%catalog_attribute}}.position' => SORT_ASC],
+                        'desc' => ['{{%catalog_attribute_group}}.position' => SORT_DESC, '{{%catalog_attribute}}.position' => SORT_DESC],
+                    ],
+                ],
                 'defaultOrder' => [
                     'position' => SORT_ASC
                 ],

@@ -25,6 +25,17 @@ class AttributeList
     }
 
     /**
+     * @param array $params
+     * @return $this
+     */
+    public function filter(array $params)
+    {
+        $this->query->andWhere($params);
+
+        return $this;
+    }
+
+    /**
      * Returns grouped attributes list
      *
      * ```php

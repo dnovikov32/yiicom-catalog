@@ -4,6 +4,7 @@ use yii\web\View;
 use yii\helpers\Html;
 use yiicom\catalog\common\models\Category;
 use yiicom\catalog\common\models\Product;
+use yiicom\files\common\widgets\ImageWidget;
 
 /**
  * @var View $this
@@ -12,156 +13,8 @@ use yiicom\catalog\common\models\Product;
  * @var Category[] $categoryParents
  * @var Category[] $categoryChildren
  * @var Product[] $products
+ * @var array $attributes
  */
-
-$products = [
-    [
-        'name' => 'Спринтер',
-        'title' => 'Микроавтобус Мерседес Спринтер',
-        'teaser' => '',
-        'body' => '',
-        'price' => 1500,
-        'isShowPrice' => '',
-        'status' => '',
-        'url' => [
-            'alias' => 'some/test/alias',
-        ],
-        'categories' => [
-            [
-                'name' => 'Туристические автобусы',
-                'title' => 'Туристические автобусы',
-            ],
-        ],
-        'attributes' => [
-            [
-                  'name' => 'type',
-                  'title' => 'Тип',
-                  'value' => 'Микроавтобус',
-                  'type' => 'select',
-                  'prefix' => '',
-                  'postfix' => '',
-                  'isShowInCategory' => true,
-            ],
-            [
-                'name' => 'model',
-                'title' => 'Марка',
-                'value' => 'Mercedes-Benz',
-                'type' => 'select',
-                'prefix' => '',
-                'postfix' => '',
-                'isShowInCategory' => true,
-            ],
-            [
-                'name' => 'year',
-                'title' => 'Год выпуска',
-                'value' => 2018,
-                'type' => 'int',
-                'prefix' => '',
-                'postfix' => 'г.',
-                'isShowInCategory' => true,
-            ],
-            [
-                'name' => 'seats',
-                'title' => 'Места',
-                'value' => 51,
-                'type' => 'int',
-                'prefix' => '',
-                'postfix' => '',
-                'isShowInCategory' => true,
-            ],
-        ],
-        'image' => [
-            'src' => '/storage/product/test.jpg',
-            'alt' => 'test alt',
-            'title' => 'test title',
-        ],
-        'images' => [
-           [
-               '' => '',
-           ]
-        ],
-    ],
-    [
-        'name' => 'Спринтер',
-        'title' => 'Микроавтобус Мерседес Спринтер',
-        'teaser' => '',
-        'body' => '',
-        'price' => 1500,
-        'isShowPrice' => '',
-        'status' => '',
-        'url' => [
-            'alias' => 'some/test/alias',
-        ],
-        'categories' => [
-            [
-                'name' => 'Туристические автобусы',
-                'title' => 'Туристические автобусы',
-            ],
-        ],
-        'attributes' => [
-            [
-                'name' => 'year',
-                'title' => 'Год выпуска',
-                'value' => 2018,
-                'type' => 'int',
-                'prefix' => '',
-                'postfix' => 'г.',
-                'isShowInCategory' => true,
-            ],
-        ],
-        'image' => [
-            'src' => '/storage/product/test.jpg',
-            'alt' => 'test alt',
-            'title' => 'test title',
-        ],
-        'images' => [
-            [
-                '' => '',
-            ]
-        ],
-    ],
-    [
-        'name' => 'Спринтер',
-        'title' => 'Микроавтобус Мерседес Спринтер',
-        'teaser' => '',
-        'body' => '',
-        'price' => 1500,
-        'isShowPrice' => '',
-        'status' => '',
-        'url' => [
-            'alias' => 'some/test/alias',
-        ],
-        'categories' => [
-            [
-                'name' => 'Туристические автобусы',
-                'title' => 'Туристические автобусы',
-            ],
-        ],
-        'attributes' => [
-            [
-                'name' => 'year',
-                'title' => 'Год выпуска',
-                'value' => 2018,
-                'type' => 'int',
-                'prefix' => '',
-                'postfix' => 'г.',
-                'isShowInCategory' => true,
-            ],
-        ],
-        'image' => [
-            'src' => '/storage/product/test.jpg',
-            'alt' => 'test alt',
-            'title' => 'test title',
-        ],
-        'images' => [
-            [
-                '' => '',
-            ]
-        ],
-    ],
-];
-
-$products = json_decode(json_encode($products, false));
 
 foreach ($categoryParents as $parent) {
     $this->params['breadcrumbs'][] = [
@@ -198,7 +51,7 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
 
 <?php if (! $products) : ?>
 
-    <p>Пока пусто</p>
+    <p class="mb-5">Пока пусто</p>
 
 <?php else : ?>
 
@@ -214,16 +67,33 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
 
                     <div class="col-md-6 col-xs-6 col-12">
                         <a class="product__image" href="/<?= $product->url->alias ?>">
-                            <img class="product__img" src="<?= $product->image->src ?>" alt="<?= Html::encode($product->image->alt) ?>" title="<?= Html::encode($product->image->title) ?>">
+                            <?php if (isset($product->files[0])) : ?>
+                                <?php echo ImageWidget::widget([
+                                    'images' => $product->files[0],
+                                    'options' => ['class' => 'product__img'],
+                                    'preset' => '265x208',
+//                                    'linkPreset' => '1200x900',
+//                                    'linkOptions' => [
+//                                        'class' => 'product__image',
+//                                        'data-toggle' => 'lightbox',
+//                                        'data-gallery' => 'product'
+//                                    ]
+                                ]); ?>
+                            <?php endif; ?>
                         </a>
                     </div>
 
                     <div class="col-md-6 col-xs-6 col-12">
                         <ul class="product__attrs">
-                            <?php foreach ($product->attributes as $attr) : ?>
-                                <li class="product__attr">
-                                    <span><?= $attr->title ?></span>: <?= $attr->value ?> <?= $attr->postfix ?>
-                                </li>
+                            <?php foreach ($attributes as $attributeGroup) : ?>
+                                <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
+                                    <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                                        <li class="product__attr">
+                                            <span><?= $attribute['title'] ?></span>:
+                                            <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             <?php endforeach; ?>
                         </ul>
 

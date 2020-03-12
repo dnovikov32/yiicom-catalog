@@ -10,8 +10,7 @@ use yiicom\content\common\models\Page;
 use yiicom\content\frontend\traits\SitePageTrait;
 use yiicom\catalog\common\models\Category;
 use yiicom\catalog\common\models\Product;
-//use app\modules\attribute\models\Attribute;
-
+use yiicom\catalog\common\lists\AttributeList;
 
 class CategoryController extends Controller
 {
@@ -48,16 +47,21 @@ class CategoryController extends Controller
         $categoryIds = array_merge([$category->id], ArrayHelper::getColumn($categoryChildren, 'id'));
         
         $products = Product::find()
+            ->withUrl()
+            ->withFiles()
+            ->withAttributeValue()
             ->category($categoryIds)
             ->active()
             ->all();
+
+        $attributes = (new AttributeList())->filter(['isShowInCard' => true])->get();
 
 		return $this->render('view', [
 			'category' => $category,
 			'categoryChildren' => $categoryChildren,
 			'categoryParents' => $categoryParents,
 			'products' => $products,
-//			'attributes' => Attribute::getList(),
+			'attributes' => $attributes,
 		]);
 	}
 

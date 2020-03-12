@@ -30,6 +30,16 @@ class ProductQuery extends ActiveQuery
     /**
      * @return self
      */
+    public function withAttributeValue()
+    {
+        $this->joinWith(['attributeValue']);
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
     public function active()
     {
         $this->andWhere(['{{%catalog_products}}.status' => ModelStatus::STATUS_ACTIVE]);

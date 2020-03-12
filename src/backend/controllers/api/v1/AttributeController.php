@@ -65,12 +65,20 @@ class AttributeController extends ApiController
             [
                 'attribute' => 'groupId',
                 'filter' => $groups,
-                'value' => function (AttributeSearch $model) use ($groups) {
-                    return $groups[$model->groupId] ?? 'Нет';
+                'value' => function (AttributeSearch $model) {
+                    return $model->group->title ?? 'Нет';
                 }
             ],
             [
                 'attribute' => 'position',
+            ],
+            [
+                'attribute' => 'isShowInCard',
+                'format' => 'boolean'
+            ],
+            [
+                'attribute' => 'isShowInProduct',
+                'format' => 'boolean'
             ],
         ];
     }

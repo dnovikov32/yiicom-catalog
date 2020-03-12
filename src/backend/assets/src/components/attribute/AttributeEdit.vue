@@ -92,7 +92,7 @@
                             value="1"
                             unchecked-value="0"
                         >
-                            Показать в каталоге
+                            Показать в карточке товара
                         </b-form-checkbox>
                     </b-form-group>
 
