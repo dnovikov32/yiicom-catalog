@@ -31,80 +31,92 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
 
 ?>
 
-<h1><?php echo Html::encode($product->title ?: $product->name); ?></h1>
+<div class="product">
 
-<div class="row">
-    <div class="col-md-6">
+    <h1><?php echo Html::encode($product->title ?: $product->name); ?></h1>
 
-        <div class="product__image">
-            <?php if (isset($images[0])) : ?>
-                <?php echo ImageWidget::widget([
-                    'images' => $images[0],
-                    'preset' => '560x360',
-                    'linkPreset' => '1200x900',
-                    'linkOptions' => ['data-toggle' => 'lightbox', 'data-gallery' => 'product']
-                ]); ?>
-            <?php endif; ?>
+    <div class="row">
+        <div class="col-md-7 mb-5">
+            <div class="product__image">
+                <?php if (isset($images[0])) : ?>
+                    <?php echo ImageWidget::widget([
+                        'images' => $images[0],
+                        'preset' => '576x426',
+                        'linkPreset' => '1200x900',
+                        'linkOptions' => [
+                            'class' => 'product__image-link',
+                            'data-fancybox' => 'gallery',
+                        ],
+                        'options' => ['class' => 'img-fluid']
+                    ]); ?>
+                <?php endif; ?>
+            </div>
         </div>
 
-        <?php if(count($images) > 1) : ?>
-            <div class="product__images js-slider" data-name="product">
-                <?php echo ImageWidget::widget([
-                    'images' => $images,
-                    'from' => 1,
-                    'preset' => '100x100',
-                    'dataPreset' => '560x360',
-                    'linkPreset' => '1200x900',
-                    'linkOptions' => [
-                        'class' => 'product__img-link',
-                        'data-toggle' => 'lightbox',
-                        'data-gallery' => 'product'
-                    ],
-                    'options' => ['class' => 'product__img']
-                ]); ?>
-            </div>
-        <?php endif; ?>
+        <div class="col-md-5 mb-5">
 
-    </div>
+            <div class="product__price">Стоимость аренды: <span><?= $product->price ?></span> руб/час</div>
 
-    <div class="col-md-6">
-
-        <ul class="product__attrs">
-            <?php foreach ($attributes as $attributeGroup) : ?>
-                <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
-                    <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
-                        <li class="product__attr">
-                            <span><?= $attribute['title'] ?></span>:
-                            <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
-                        </li>
-                    <?php endif; ?>
+            <ul class="product__attrs">
+                <?php foreach ($attributes as $attributeGroup) : ?>
+                    <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
+                        <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                            <li class="product__attr">
+                                <span><?= $attribute['title'] ?></span>:
+                                <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
-            <?php endforeach; ?>
-        </ul>
+            </ul>
+
+            <div class="product__equipment-link">
+                <a class="link" href="#" data-scroll-to="product__equipments">Комплектация</a>
+            </div>
+
+            <a class="btn btn-primary btn-lg product__btn-rent" href="#">Заказать автобус</a>
+
+        </div>
 
     </div>
-</div>
 
+    <?php if(count($images) > 1) : ?>
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="product__images js-slick" data-name="product">
+                    <?php echo ImageWidget::widget([
+                        'images' => $images,
+                        'preset' => '281x207',
+                        'dataPreset' => '576x426',
+                        'linkPreset' => '1200x900',
+                        'linkOptions' => [
+                            'class' => 'product__img-link',
+                            'data-fancybox' => 'gallery'
+                        ],
+                        'options' => ['class' => 'product__img']
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
-<?php if ($product->teaser) : ?>
-    <div class="product__teaser">
-        <?= $product->teaser ?>
-    </div>
-<?php endif; ?>
+    <?php if ($product->teaser) : ?>
+        <div class="row">
+            <div class="col-md-12 product__teaser">
+                <?= $product->teaser ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
+    <?php if ($product->body) : ?>
+        <div class="row">
+            <div class="col-md-12 product__body">
+                <h2>Описание</h2>
+                <?= $product->body ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
-
-<?php if ($product->body) : ?>
-    <div class="product-card__body">
-        <?= $product->body ?>
-    </div>
-<?php endif; ?>
-
-
-
-
-
-
-
+</div><!-- /product -->
 
 
