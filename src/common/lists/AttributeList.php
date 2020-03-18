@@ -39,34 +39,6 @@ class AttributeList
      * Returns grouped attributes list
      *
      * ```php
-     * [
-     *      [
-     *          'name' => 'groupSystemName',
-     *          'title' => 'Group title',
-     *          'attributes' => [
-     *              [
-     *                  'id' => 1,
-     *                  'name' => 'attributeSystemName',
-     *                  'title' => 'Attribute title',
-     *                  'value' => 'Some value',
-     *                  'type' => 1,
-     *                  'prefix' => '',
-     *                  'postfix' => '',
-     *                  'isShowInCard' => true,
-     *                  'isShowInProduct' => false,
-     *              ],
-     *              ...
-     *          ]
-     *      ],
-     *      [
-     *          'attributes' => [
-     *              [
-     *                  // Attribute without group
-     *              ],
-     *              ...
-     *          ]
-     *      ]
-     * ]
      * ```
      *
      * @return array
@@ -78,22 +50,21 @@ class AttributeList
 
         foreach ($this->query->all() as $index => $attribute) {
             /* @var Attribute $attribute */
+            $group = $attribute->group;
 
-            if ($attribute->groupId) {
-                if (! isset($groups[$attribute->groupId])) {
-                    $groups[$attribute->groupId] = $attribute->group->toArray();
+            if ($group) {
+                if (! isset($this->items[$group->name])) {
+                    $this->items[$group->name] = $attribute->group->toArray();
                 }
-                $groups[$attribute->groupId]['attributes'][] = $attribute->toArray();
+
+                $this->items[$group->name]['attributes'][] = $attribute->toArray();
             } else {
-                $attributes[] = $attribute->toArray();
+                $attributes['attributes'][] = $attribute->toArray();
             }
         }
 
-        foreach ($groups as $groupId => $group) {
-            $this->items[] = $group;
-        }
-
-        $this->items[]['attributes'] = $attributes;
+        // Adds attributes without a group to the end of the array
+        $this->items[''] = $attributes;
 
         return $this->items;
     }
