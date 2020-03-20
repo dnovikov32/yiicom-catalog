@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
     <?php if(count($images) > 1) : ?>
         <div class="row mb-5">
             <div class="col-md-12">
-                <div class="product__images js-slick" data-name="product">
+                <div class="product__images js-slick-slider" data-name="product">
                     <?php echo ImageWidget::widget([
                         'images' => $images,
                         'preset' => '281x207',
