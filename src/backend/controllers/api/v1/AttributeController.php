@@ -48,6 +48,13 @@ class AttributeController extends ApiController
                 'attribute' => 'title',
             ],
             [
+                'attribute' => 'groupId',
+                'filter' => $groups,
+                'value' => function (AttributeSearch $model) {
+                    return $model->group->title ?? 'Нет';
+                }
+            ],
+            [
                 'attribute' => 'name',
                 'format' => 'html',
                 'value' => function (AttributeSearch $model) {
@@ -60,13 +67,6 @@ class AttributeController extends ApiController
                 'attribute' => 'type',
                 'value' => function (AttributeSearch $model) {
                     return $model->typesList()[$model->type] ?? 'Нет';
-                }
-            ],
-            [
-                'attribute' => 'groupId',
-                'filter' => $groups,
-                'value' => function (AttributeSearch $model) {
-                    return $model->group->title ?? 'Нет';
                 }
             ],
             [
