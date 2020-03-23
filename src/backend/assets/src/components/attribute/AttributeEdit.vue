@@ -64,6 +64,8 @@
                             class="col-3"
                             v-model="model.groupId"
                             :options="groups"
+                            value-field="id"
+                            text-field="title"
                         >
                             <option :value="null">Нет</option>
                         </b-form-select>

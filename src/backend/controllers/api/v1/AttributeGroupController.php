@@ -114,7 +114,9 @@ class AttributeGroupController extends ApiController
 
     public function actionList()
     {
-        return (new AttributeGroup)->getList();
+        return AttributeGroup::find()
+            ->orderBy('position')
+            ->all();
     }
 
 }
