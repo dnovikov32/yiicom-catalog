@@ -44,6 +44,12 @@ class AttributeGroupController extends ApiController
                 'attribute' => 'title',
             ],
             [
+                'attribute' => 'type',
+                'value' => function (AttributeGroupSearch $model) {
+                    return $model->typesList()[$model->type] ?? 'Нет';
+                }
+            ],
+            [
                 'attribute' => 'name',
                 'format' => 'html',
                 'value' => function (AttributeGroupSearch $model) {

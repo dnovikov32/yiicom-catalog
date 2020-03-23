@@ -42,6 +42,19 @@
                     </b-form-group>
 
                     <b-form-group
+                        label="Тип"
+                        label-for="type"
+                        label-cols-sm="2"
+                    >
+                        <b-form-select
+                            id="type"
+                            class="col-3"
+                            v-model="model.type"
+                            :options="types">
+                        </b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
                         label="Позиция"
                         label-for="position"
                         label-cols-sm="2"
@@ -89,7 +102,10 @@
             },
             model: function () {
                 return this.$store.getters['catalog-attribute-group/model'];
-            }
+            },
+            types: function () {
+                return _.isEmpty(this.settings) ? [] : this.settings.catalog.attributes.typesList;
+            },
         },
 
         created () {

@@ -8,6 +8,8 @@ use yiicom\common\interfaces\ModelList;
 use yiicom\common\interfaces\ModelStatus;
 use yiicom\common\traits\ModelListTrait;
 use yiicom\common\traits\ModelStatusTrait;
+use yiicom\catalog\common\models\AttributeType;
+use yiicom\catalog\common\models\AttributeTypeTrait;
 
 /**
  * @property string $name
@@ -20,13 +22,9 @@ use yiicom\common\traits\ModelStatusTrait;
  *
  * @property AttributeGroup $group
  */
-class Attribute extends ActiveRecord implements ModelStatus, ModelList
+class Attribute extends ActiveRecord implements ModelStatus, ModelList, AttributeType
 {
-    use ModelStatusTrait, ModelListTrait;
-
-    const TYPE_CHECKBOX = 1;
-    const TYPE_INT = 2;
-    const TYPE_STR = 3;
+    use ModelStatusTrait, ModelListTrait, AttributeTypeTrait;
 
     /**
      * @inheritDoc
@@ -34,18 +32,6 @@ class Attribute extends ActiveRecord implements ModelStatus, ModelList
 	public static function tableName() {
 		return '{{%catalog_attribute}}';
 	}
-
-    /**
-     * @return array
-     */
-    public function typesList()
-    {
-        return [
-            self::TYPE_CHECKBOX => 'Флажок',
-            self::TYPE_INT => 'Число',
-            self::TYPE_STR => 'Текст'
-        ];
-    }
 
     /**
      * @inheritDoc

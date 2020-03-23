@@ -8,15 +8,19 @@ use yiicom\common\interfaces\ModelList;
 use yiicom\common\interfaces\ModelStatus;
 use yiicom\common\traits\ModelListTrait;
 use yiicom\common\traits\ModelStatusTrait;
+use yiicom\catalog\common\models\Attribute;
+use yiicom\catalog\common\models\AttributeType;
+use yiicom\catalog\common\models\AttributeTypeTrait;
 
 /**
  * @property string $name
  * @property string $title
+ * @property integer $type
  * @property integer $position
  */
-class AttributeGroup extends ActiveRecord implements ModelStatus, ModelList
+class AttributeGroup extends ActiveRecord implements ModelStatus, ModelList, AttributeType
 {
-    use ModelStatusTrait, ModelListTrait;
+    use ModelStatusTrait, ModelListTrait, AttributeTypeTrait;
 
     /**
      * @inheritDoc
@@ -41,6 +45,9 @@ class AttributeGroup extends ActiveRecord implements ModelStatus, ModelList
 			['title', 'required'],
 			['title', 'string', 'max' => 255],
 
+            ['type', 'required'],
+            ['type', 'in', 'range' => array_keys($this->typesList())],
+
 			['position', 'integer'],
 			['position', 'default', 'value' => 0]
 		];
@@ -55,6 +62,7 @@ class AttributeGroup extends ActiveRecord implements ModelStatus, ModelList
             'id' => Yii::t('yiicom', 'ID'),
             'name' => Yii::t('yiicom', 'System name'),
             'title' => Yii::t('yiicom', 'Title'),
+            'type' => Yii::t('yiicom', 'Type'),
             'position' => Yii::t('yiicom', 'Position'),
 		];
 	}
@@ -68,6 +76,7 @@ class AttributeGroup extends ActiveRecord implements ModelStatus, ModelList
             'id',
             'name',
             'title',
+            'type',
             'position',
         ];
     }
