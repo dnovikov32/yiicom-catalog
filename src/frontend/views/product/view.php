@@ -59,14 +59,16 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
 
             <ul class="product__attrs">
                 <?php foreach ($attributes as $attributeGroup) : ?>
-                    <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
-                        <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
-                            <li class="product__attr">
-                                <span><?= $attribute['title'] ?></span>:
-                                <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
-                            </li>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <?php  if (isset($attributeGroup['attributes'])) : ?>
+                        <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
+                            <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                                <li class="product__attr">
+                                    <span><?= $attribute['title'] ?></span>:
+                                    <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </ul>
 
