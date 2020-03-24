@@ -143,5 +143,3 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
     <?php endif; ?>
 
 </div><!-- /product -->
-
-<?php echo '<pre>'; print_r($attributes);echo '</pre>'; ?>
