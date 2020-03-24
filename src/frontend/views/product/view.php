@@ -72,11 +72,9 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                 <?php endforeach; ?>
             </ul>
 
-            <?php if (isset($attributes['equipment']['attributes'])) : ?>
-                <div class="product__equipment-link">
-                    <a class="link" href="#" data-scroll-to=".product__equipment">Комплектация</a>
-                </div>
-            <?php endif; ?>
+            <div class="product__equipment-link">
+                <a class="link" href="#" data-scroll-to=".product__equipment">Комплектация</a>
+            </div>
 
             <a class="btn btn-primary btn-lg product__btn-rent" href="#">Заказать автобус</a>
 
