@@ -4,6 +4,7 @@ use yii\web\View;
 use yii\helpers\Html;
 use yiicom\catalog\common\models\Product;
 use yiicom\catalog\common\models\Category;
+use yiicom\catalog\common\models\AttributeType;
 use yiicom\files\common\models\File;
 use yiicom\files\common\widgets\ImageWidget;
 
@@ -63,8 +64,14 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                         <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
                             <?php if (isset($product->attributeValue->value[$attribute['id']]) && $attribute['isShowInProduct']) : ?>
                                 <li class="product__attr">
-                                    <span><?= Html::encode($attribute['title']) ?></span>:
-                                    <?= isset($product->attributeValue->value[$attribute['id']]) ? Html::encode($product->attributeValue->value[$attribute['id']]) : '' ?>
+                                    <?php if ($attribute['type'] == AttributeType::TYPE_CHECKBOX) : ?>
+                                        <span><?= Html::encode($attribute['title']) ?></span>: есть
+                                    <?php elseif ($attributeGroup['type'] == AttributeType::TYPE_SELECT) : ?>
+                                        <span><?= Html::encode($attributeGroup['title']) ?></span>: <?= Html::encode($attribute['title']) ?>
+                                    <?php else : ?>
+                                        <span><?= Html::encode($attribute['title']) ?></span>:
+                                        <?= isset($product->attributeValue->value[$attribute['id']]) ? Html::encode($product->attributeValue->value[$attribute['id']]) : '' ?>
+                                    <?php endif; ?>
                                 </li>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -137,3 +144,4 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
 
 </div><!-- /product -->
 
+<?php echo '<pre>'; print_r($attributes);echo '</pre>'; ?>

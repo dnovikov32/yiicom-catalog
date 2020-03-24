@@ -4,6 +4,7 @@ use yii\web\View;
 use yii\helpers\Html;
 use yiicom\catalog\common\models\Category;
 use yiicom\catalog\common\models\Product;
+use yiicom\catalog\common\models\AttributeType;
 use yiicom\files\common\widgets\ImageWidget;
 
 /**
@@ -90,8 +91,14 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                                     <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
                                         <?php if (isset($product->attributeValue->value[$attribute['id']]) && $attribute['isShowInCard']) : ?>
                                             <li class="product-card__attr">
-                                                <span><?= Html::encode($attribute['title']) ?></span>:
-                                                <?= isset($product->attributeValue->value[$attribute['id']]) ? Html::encode($product->attributeValue->value[$attribute['id']]) : '' ?>
+                                                <?php if ($attribute['type'] == AttributeType::TYPE_CHECKBOX) : ?>
+                                                    <span><?= Html::encode($attribute['title']) ?></span>: есть
+                                                <?php elseif ($attributeGroup['type'] == AttributeType::TYPE_SELECT) : ?>
+                                                    <span><?= Html::encode($attributeGroup['title']) ?></span>: <?= Html::encode($attribute['title']) ?>
+                                                <?php else : ?>
+                                                    <span><?= Html::encode($attribute['title']) ?></span>:
+                                                    <?= isset($product->attributeValue->value[$attribute['id']]) ? Html::encode($product->attributeValue->value[$attribute['id']]) : '' ?>
+                                                <?php endif; ?>
                                             </li>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
