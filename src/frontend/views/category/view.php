@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
 
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 product-card">
 
-                <a class="product-card__title" href="/<?= $product->url->alias ?>"><?= Html::encode($product->title) ?></a>
+                <a class="product-card__title" href="/<?= $product->url->alias ?>"><?= Html::encode($product->name) ?></a>
 
                 <div class="row product-card__desc">
 
