@@ -61,10 +61,10 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                 <?php foreach ($attributes as $attributeGroup) : ?>
                     <?php  if (isset($attributeGroup['attributes'])) : ?>
                         <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
-                            <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                            <?php if (isset($product->attributeValue->value[$attribute['id']]) && $attribute['isShowInProduct']) : ?>
                                 <li class="product__attr">
-                                    <span><?= $attribute['title'] ?></span>:
-                                    <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
+                                    <span><?= Html::encode($attribute['title']) ?></span>:
+                                    <?= isset($product->attributeValue->value[$attribute['id']]) ? Html::encode($product->attributeValue->value[$attribute['id']]) : '' ?>
                                 </li>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -72,9 +72,11 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
                 <?php endforeach; ?>
             </ul>
 
-            <div class="product__equipment-link">
-                <a class="link" href="#" data-scroll-to="product__equipments">Комплектация</a>
-            </div>
+            <?php if (isset($attributes['equipment']['attributes'])) : ?>
+                <div class="product__equipment-link">
+                    <a class="link" href="#" data-scroll-to=".product__equipment">Комплектация</a>
+                </div>
+            <?php endif; ?>
 
             <a class="btn btn-primary btn-lg product__btn-rent" href="#">Заказать автобус</a>
 
@@ -82,7 +84,7 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
 
     </div>
 
-    <?php if(count($images) > 1) : ?>
+    <?php if (count($images) > 1) : ?>
         <div class="row mb-5">
             <div class="col-md-12">
                 <div class="product__images js-slick-slider" data-name="product">
@@ -119,6 +121,21 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
         </div>
     <?php endif; ?>
 
-</div><!-- /product -->
 
+    <?php if (isset($attributes['equipment']['attributes'])) : ?>
+        <div class="row">
+            <div class="col-md-12 product__equipment">
+                <h2>Комплектация</h2>
+                <?php foreach ($attributes['equipment']['attributes'] as $attribute) : ?>
+                    <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                        <li class="product__attr">
+                            <span><?= Html::encode($attribute['title']) ?></span>: есть
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+</div><!-- /product -->
 

@@ -54,7 +54,7 @@ class CategoryController extends Controller
             ->active()
             ->all();
 
-        $attributes = (new AttributeList())->filter(['isShowInCard' => true])->get();
+        $attributes = (new AttributeList())->get();
 
 		return $this->render('view', [
 			'category' => $category,

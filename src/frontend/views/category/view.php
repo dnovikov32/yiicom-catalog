@@ -88,10 +88,10 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                             <?php foreach ($attributes as $attributeGroup) : ?>
                                 <?php  if (isset($attributeGroup['attributes'])) : ?>
                                     <?php foreach ($attributeGroup['attributes'] as $attribute) : ?>
-                                        <?php if (isset($product->attributeValue->value[$attribute['id']])) : ?>
+                                        <?php if (isset($product->attributeValue->value[$attribute['id']]) && $attribute['isShowInCard']) : ?>
                                             <li class="product-card__attr">
-                                                <span><?= $attribute['title'] ?></span>:
-                                                <?= $product->attributeValue->value[$attribute['id']] ?? '' ?>
+                                                <span><?= Html::encode($attribute['title']) ?></span>:
+                                                <?= isset($product->attributeValue->value[$attribute['id']]) ? Html::encode($product->attributeValue->value[$attribute['id']]) : '' ?>
                                             </li>
                                         <?php endif; ?>
                                     <?php endforeach; ?>

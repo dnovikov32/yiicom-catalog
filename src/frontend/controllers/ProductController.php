@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         $images = $product->files;
 
-        $attributes = (new AttributeList())->filter(['isShowInProduct' => true])->get();
+        $attributes = (new AttributeList())->get();
 
 		return $this->render('view', [
 			'product' => $product,
