@@ -19,6 +19,7 @@
                         label="Название"
                         label-for="name"
                         label-cols-sm="2"
+                        description="Название в карточке товара"
                     >
                         <b-form-input
                             id="name"
@@ -118,9 +119,9 @@
 
             </b-card>
 
-            <attribute-form :model.sync="model.attributeValue"></attribute-form>
-
             <url-form :model="model"></url-form>
+
+            <attribute-form :model.sync="model.attributeValue"></attribute-form>
 
             <files-form
                 :models.sync="model.files"
