@@ -56,7 +56,9 @@ $this->params['breadcrumbs'][] = Html::encode($product->title ?: $product->name)
 
         <div class="col-md-5 mb-5">
 
-            <div class="product__price">Стоимость аренды: <span><?= $product->price ?></span> руб/час</div>
+            <?php if ($product->isShowPrice) : ?>
+                <div class="product__price">Стоимость аренды: <span><?= $product->price ?></span> руб/час</div>
+            <?php endif; ?>
 
             <ul class="product__attrs">
                 <?php foreach ($attributes as $attributeGroup) : ?>

@@ -114,7 +114,9 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                 <div class="row">
 
                     <div class="col-md-6 col-xs-12">
-                        <div class="product-card__price">от <span>3000</span> руб/час</div>
+                        <?php if ($product->isShowPrice) : ?>
+                            <div class="product-card__price">от <span><?= $product->price ?></span> руб/час</div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="col-md-6 col-xs-12">
