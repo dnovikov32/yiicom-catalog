@@ -4,6 +4,7 @@ namespace yiicom\catalog\common\lists;
 
 use yii\db\ActiveQuery;
 use yiicom\catalog\common\models\Attribute;
+use yiicom\catalog\common\models\AttributeGroup;
 
 class AttributeList
 {
@@ -19,9 +20,12 @@ class AttributeList
 
     public function __construct()
     {
+        $catalogAttribute = Attribute::tableName();
+        $catalogAttributeGroup = AttributeGroup::tableName();
+        
         $this->query = Attribute::find()
             ->joinWith(['group'])
-            ->orderBy('{{%catalog_attribute_group}}.position, {{%catalog_attribute}}.position');
+            ->orderBy("$catalogAttributeGroup.position, $catalogAttribute.position");
     }
 
     /**

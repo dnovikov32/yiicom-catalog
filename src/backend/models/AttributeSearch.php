@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yiicom\backend\search\SearchModelInterface;
 use yiicom\backend\search\SearchModelTrait;
 use yiicom\catalog\common\models\Attribute;
+use yiicom\catalog\common\models\AttributeGroup;
 
 class AttributeSearch extends Attribute implements SearchModelInterface
 {
@@ -49,13 +50,16 @@ class AttributeSearch extends Attribute implements SearchModelInterface
      */
     protected function prepareDataProvider($query)
     {
+        $catalogAttribute = Attribute::tableName();
+        $catalogAttributeGroup = AttributeGroup::tableName();
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
                 'attributes' => [
                     'position' => [
-                        'asc' => ['{{%catalog_attribute_group}}.position' => SORT_ASC, '{{%catalog_attribute}}.position' => SORT_ASC],
-                        'desc' => ['{{%catalog_attribute_group}}.position' => SORT_DESC, '{{%catalog_attribute}}.position' => SORT_DESC],
+                        'asc' => ["$catalogAttributeGroup.position" => SORT_ASC, "$catalogAttribute.position" => SORT_ASC],
+                        'desc' => ["$catalogAttributeGroup.position" => SORT_DESC, "$catalogAttribute.position" => SORT_DESC],
                     ],
                 ],
                 'defaultOrder' => [
@@ -75,16 +79,18 @@ class AttributeSearch extends Attribute implements SearchModelInterface
      */
     protected function prepareFilters($query)
     {
+        $catalogAttribute = Attribute::tableName();
+
         $query->andFilterWhere([
-            '{{%catalog_attribute}}.id' => $this->id,
-            '{{%catalog_attribute}}.position' => $this->position,
-            '{{%catalog_attribute}}.groupId' => $this->groupId,
-            '{{%catalog_attribute}}.type' => $this->type,
-            '{{%catalog_attribute}}.isShowInCard' => $this->isShowInCard,
-            '{{%catalog_attribute}}.isShowInProduct' => $this->isShowInProduct,
+            "$catalogAttribute.id" => $this->id,
+            "$catalogAttribute.position" => $this->position,
+            "$catalogAttribute.groupId" => $this->groupId,
+            "$catalogAttribute.type" => $this->type,
+            "$catalogAttribute.isShowInCard" => $this->isShowInCard,
+            "$catalogAttribute.isShowInProduct" => $this->isShowInProduct,
         ]);
 
-        $query->andFilterWhere(['LIKE', '{{%catalog_attribute}}.name', $this->name]);
-        $query->andFilterWhere(['LIKE', '{{%catalog_attribute}}.title', $this->title]);
+        $query->andFilterWhere(['LIKE', "$catalogAttribute.name", $this->name]);
+        $query->andFilterWhere(['LIKE', "$catalogAttribute.title", $this->title]);
     }
 }

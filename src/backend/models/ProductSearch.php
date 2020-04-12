@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yiicom\backend\search\SearchModelInterface;
 use yiicom\backend\search\SearchModelTrait;
 use yiicom\catalog\common\models\Product;
+use yiicom\content\common\models\PageUrl;
 
 class ProductSearch extends Product implements SearchModelInterface
 {
@@ -86,12 +87,15 @@ class ProductSearch extends Product implements SearchModelInterface
      */
     protected function prepareFilters($query)
     {
+        $catalogProduct = Product::tableName();
+        $contentUrl = PageUrl::tableName();
+
         $query->andFilterWhere([
-            '{{%catalog_product}}.id' => $this->id
+            "$catalogProduct.id" => $this->id
         ]);
 
-        $query->andFilterWhere(['LIKE', '{{%catalog_product}}.name', $this->name]);
-        $query->andFilterWhere(['LIKE', '{{%catalog_product}}.title', $this->title]);
-        $query->andFilterWhere(['LIKE', '{{%content_url}}.alias', $this->alias]);
+        $query->andFilterWhere(['LIKE', "$catalogProduct.name", $this->name]);
+        $query->andFilterWhere(['LIKE', "$catalogProduct.title", $this->title]);
+        $query->andFilterWhere(['LIKE', "$contentUrl.alias", $this->alias]);
     }
 }

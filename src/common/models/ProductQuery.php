@@ -4,6 +4,8 @@ namespace yiicom\catalog\common\models;
 
 use yii\db\ActiveQuery;
 use yiicom\common\interfaces\ModelStatus;
+use yiicom\catalog\common\models\Product;
+use yiicom\catalog\common\models\ProductCategory;
 
 class ProductQuery extends ActiveQuery
 {
@@ -42,7 +44,9 @@ class ProductQuery extends ActiveQuery
      */
     public function active()
     {
-        $this->andWhere(['{{%catalog_product}}.status' => ModelStatus::STATUS_ACTIVE]);
+        $catalogProduct = Product::tableName();
+
+        $this->andWhere(["$catalogProduct.status" => ModelStatus::STATUS_ACTIVE]);
 
         return $this;
     }
@@ -53,9 +57,10 @@ class ProductQuery extends ActiveQuery
     public function category($ids = [])
     {
         $ids = (array) $ids;
+        $catalogProductCategory = ProductCategory::tableName();
 
         $this->joinWith(['categories'])
-            ->andWhere(['IN', '{{%catalog_product_category}}.categoryId', $ids]);
+            ->andWhere(['IN', "$catalogProductCategory.categoryId", $ids]);
 
         return $this;
     }

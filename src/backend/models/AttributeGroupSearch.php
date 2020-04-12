@@ -58,12 +58,14 @@ class AttributeGroupSearch extends AttributeGroup implements SearchModelInterfac
      */
     protected function prepareFilters($query)
     {
+        $catalogAttributeGroup = AttributeGroup::tableName();
+
         $query->andFilterWhere([
-            '{{%catalog_attribute_group}}.id' => $this->id,
-            '{{%catalog_attribute_group}}.position' => $this->position,
+            "$catalogAttributeGroup.id" => $this->id,
+            "$catalogAttributeGroup.position" => $this->position,
         ]);
 
-        $query->andFilterWhere(['LIKE', '{{%catalog_attribute_group}}.name', $this->name]);
-        $query->andFilterWhere(['LIKE', '{{%catalog_attribute_group}}.title', $this->title]);
+        $query->andFilterWhere(['LIKE', "$catalogAttributeGroup.name", $this->name]);
+        $query->andFilterWhere(['LIKE', "$catalogAttributeGroup.title", $this->title]);
     }
 }
