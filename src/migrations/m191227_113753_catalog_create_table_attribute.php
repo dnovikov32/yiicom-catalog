@@ -18,6 +18,8 @@ class m191227_113753_catalog_create_table_attribute extends Migration
             'position' => $this->tinyInteger(3)->defaultValue(0),
             'isShowInCard' => $this->boolean()->defaultValue(false),
             'isShowInProduct' => $this->boolean()->defaultValue(false),
+            'prefix' => $this->string(),
+            'postfix' => $this->string(),
         ], 'ENGINE=InnoDB CHARSET=utf8');
 
         $this->addForeignKey('{{%fk-catalog_attribute-catalog_attribute_group}}',

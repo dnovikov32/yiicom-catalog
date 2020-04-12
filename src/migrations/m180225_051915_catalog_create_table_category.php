@@ -2,14 +2,14 @@
 
 use yii\db\Migration;
 
-class m180225_051915_catalog_categories_create_table extends Migration
+class m180225_051915_catalog_create_table_category extends Migration
 {
     /**
      * @inheritdoc
      */
     public function safeUp()
     {
-        $this->createTable('{{%catalog_categories}}', [
+        $this->createTable('{{%catalog_category}}', [
             'id' => $this->primaryKey(),
             'left' => $this->integer(),
             'right' => $this->integer(),
@@ -25,9 +25,9 @@ class m180225_051915_catalog_categories_create_table extends Migration
             'updatedAt' => $this->dateTime(),
         ], 'ENGINE=InnoDB CHARSET=utf8');
 
-        $this->addForeignKey('{{%fk-catalog_categories-catalog_categories}}',
-            '{{%catalog_categories}}', 'parentId',
-            '{{%catalog_categories}}', 'id',
+        $this->addForeignKey('{{%fk-catalog_category-catalog_category}}',
+            '{{%catalog_category}}', 'parentId',
+            '{{%catalog_category}}', 'id',
             'RESTRICT', 'CASCADE');
     }
 
@@ -36,8 +36,8 @@ class m180225_051915_catalog_categories_create_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('{{%fk-catalog_categories-catalog_categories}}', '{{%catalog_categories}}');
+        $this->dropForeignKey('{{%fk-catalog_category-catalog_category}}', '{{%catalog_category}}');
 
-        $this->dropTable('{{%catalog_categories}}');
+        $this->dropTable('{{%catalog_category}}');
     }
 }

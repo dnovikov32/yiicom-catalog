@@ -13,6 +13,7 @@ class m191227_113256_catalog_create_table_attribute_group extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'title' => $this->string(),
+            'type' => $this->tinyInteger(2)->defaultValue(0),
             'position' => $this->tinyInteger(3)->defaultValue(0),
         ], 'ENGINE=InnoDB CHARSET=utf8');
     }

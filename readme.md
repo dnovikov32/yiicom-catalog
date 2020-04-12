@@ -55,11 +55,12 @@
 ],
 ```
 
-Run migrations to create tables **catalog_categories** and **catalog_products**
+Run migrations to create tables **catalog_category** and **catalog_product**
 ```bash
 php yii migrate
 ```
 
+TODO: add other tables 
 
 
 

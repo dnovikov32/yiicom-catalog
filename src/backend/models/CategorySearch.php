@@ -6,6 +6,7 @@ use yii\db\ActiveQuery;
 use yii\data\ActiveDataProvider;
 use yiicom\backend\search\SearchModelInterface;
 use yiicom\backend\search\SearchModelTrait;
+use yiicom\content\common\models\PageUrl;
 use yiicom\catalog\common\models\Category;
 
 class CategorySearch extends Category implements SearchModelInterface
@@ -85,12 +86,15 @@ class CategorySearch extends Category implements SearchModelInterface
      */
     protected function prepareFilters($query)
     {
+        $catalogCategory = Category::tableName();
+        $contentUrl = PageUrl::tableName();
+        
         $query->andFilterWhere([
-            '{{%catalog_categories}}.id' => $this->id
+            "$catalogCategory.id" => $this->id
         ]);
 
-        $query->andFilterWhere(['LIKE', '{{%catalog_categories}}.name', $this->name]);
-        $query->andFilterWhere(['LIKE', '{{%catalog_categories}}.title', $this->title]);
-        $query->andFilterWhere(['LIKE', '{{%pages_urls}}.alias', $this->alias]);
+        $query->andFilterWhere(['LIKE', "$catalogCategory.name", $this->name]);
+        $query->andFilterWhere(['LIKE', "$catalogCategory.title", $this->title]);
+        $query->andFilterWhere(['LIKE', "$contentUrl.alias", $this->alias]);
     }
 }

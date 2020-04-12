@@ -15,9 +15,9 @@ class m191227_131853_catalog_create_table_attribute_value extends Migration
             'value' => $this->json(),
         ], 'ENGINE=InnoDB CHARSET=utf8');
 
-        $this->addForeignKey('{{%fk-catalog_attribute_value-catalog_products}}',
+        $this->addForeignKey('{{%fk-catalog_attribute_value-catalog_product}}',
             '{{%catalog_attribute_value}}', 'productId',
-            '{{%catalog_products}}', 'id',
+            '{{%catalog_product}}', 'id',
             'RESTRICT', 'CASCADE');
     }
 
@@ -26,7 +26,7 @@ class m191227_131853_catalog_create_table_attribute_value extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('{{%fk-catalog_attribute_value-catalog_products}}', '{{%catalog_attribute_value}}');
+        $this->dropForeignKey('{{%fk-catalog_attribute_value-catalog_product}}', '{{%catalog_attribute_value}}');
         
         $this->dropTable('{{%catalog_attribute_value}}');
     }

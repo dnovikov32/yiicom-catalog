@@ -50,7 +50,7 @@ class Category extends ActiveRecord implements ModelStatus, ModelList, ModelRela
      */
 	public static function tableName()
 	{
-		return '{{%catalog_categories}}';
+		return '{{%catalog_category}}';
 	}
 
     /**

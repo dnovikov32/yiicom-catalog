@@ -2,14 +2,14 @@
 
 use yii\db\Migration;
 
-class m191211_072114_catalog_products_create_table extends Migration
+class m191211_072114_catalog_create_table_product extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%catalog_products}}', [
+        $this->createTable('{{%catalog_product}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'title' => $this->string(),
@@ -22,21 +22,21 @@ class m191211_072114_catalog_products_create_table extends Migration
             'updatedAt' => $this->dateTime(),
         ], 'ENGINE=InnoDB CHARSET=utf8');
 
-        $this->createTable('{{%catalog_products_categories}}', [
+        $this->createTable('{{%catalog_product_category}}', [
             'id' => $this->primaryKey(),
             'productId' => $this->integer(),
             'categoryId' => $this->integer(),
             'isMain' => $this->boolean()->defaultValue(false),
         ], 'ENGINE=InnoDB CHARSET=utf8');
 
-        $this->addForeignKey('{{%fk-catalog_products_categories-catalog_products}}',
-            '{{%catalog_products_categories}}', 'productId',
-            '{{%catalog_products}}', 'id',
+        $this->addForeignKey('{{%fk-catalog_product_category-catalog_product}}',
+            '{{%catalog_product_category}}', 'productId',
+            '{{%catalog_product}}', 'id',
             'RESTRICT', 'CASCADE');
 
-        $this->addForeignKey('{{%fk-catalog_products_categories-catalog_categories}}',
-            '{{%catalog_products_categories}}', 'categoryId',
-            '{{%catalog_categories}}', 'id',
+        $this->addForeignKey('{{%fk-catalog_product_category-catalog_category}}',
+            '{{%catalog_product_category}}', 'categoryId',
+            '{{%catalog_category}}', 'id',
             'RESTRICT', 'CASCADE');
     }
 
@@ -45,12 +45,12 @@ class m191211_072114_catalog_products_create_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('{{%fk-catalog_products_categories-catalog_products}}', '{{%catalog_products_categories}}');
-        $this->dropForeignKey('{{%fk-catalog_products_categories-catalog_categories}}', '{{%catalog_products_categories}}');
+        $this->dropForeignKey('{{%fk-catalog_product_category-catalog_product}}', '{{%catalog_product_category}}');
+        $this->dropForeignKey('{{%fk-catalog_product_category-catalog_category}}', '{{%catalog_product_category}}');
 
-        $this->dropTable('{{%catalog_products_categories}}');
+        $this->dropTable('{{%catalog_product_category}}');
 
-        $this->dropTable('{{%catalog_products}}');
+        $this->dropTable('{{%catalog_product}}');
     }
 
 }

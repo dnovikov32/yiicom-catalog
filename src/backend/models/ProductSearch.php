@@ -87,11 +87,11 @@ class ProductSearch extends Product implements SearchModelInterface
     protected function prepareFilters($query)
     {
         $query->andFilterWhere([
-            '{{%catalog_products}}.id' => $this->id
+            '{{%catalog_product}}.id' => $this->id
         ]);
 
-        $query->andFilterWhere(['LIKE', '{{%catalog_products}}.name', $this->name]);
-        $query->andFilterWhere(['LIKE', '{{%catalog_products}}.title', $this->title]);
-        $query->andFilterWhere(['LIKE', '{{%pages_urls}}.alias', $this->alias]);
+        $query->andFilterWhere(['LIKE', '{{%catalog_product}}.name', $this->name]);
+        $query->andFilterWhere(['LIKE', '{{%catalog_product}}.title', $this->title]);
+        $query->andFilterWhere(['LIKE', '{{%content_url}}.alias', $this->alias]);
     }
 }

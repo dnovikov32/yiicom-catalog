@@ -42,7 +42,7 @@ class ProductQuery extends ActiveQuery
      */
     public function active()
     {
-        $this->andWhere(['{{%catalog_products}}.status' => ModelStatus::STATUS_ACTIVE]);
+        $this->andWhere(['{{%catalog_product}}.status' => ModelStatus::STATUS_ACTIVE]);
 
         return $this;
     }
@@ -55,7 +55,7 @@ class ProductQuery extends ActiveQuery
         $ids = (array) $ids;
 
         $this->joinWith(['categories'])
-            ->andWhere(['IN', '{{%catalog_products_categories}}.categoryId', $ids]);
+            ->andWhere(['IN', '{{%catalog_product_category}}.categoryId', $ids]);
 
         return $this;
     }

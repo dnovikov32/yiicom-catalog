@@ -51,7 +51,7 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
      */
 	public static function tableName()
 	{
-		return '{{%catalog_products}}';
+		return '{{%catalog_product}}';
 	}
 
     /**

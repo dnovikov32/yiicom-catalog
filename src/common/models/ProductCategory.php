@@ -21,7 +21,7 @@ class ProductCategory extends ActiveRecord
      */
 	public static function tableName()
 	{
-		return '{{%catalog_products_categories}}';
+		return '{{%catalog_product_category}}';
 	}
     
     /**
