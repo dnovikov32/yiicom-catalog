@@ -10,7 +10,7 @@ use yiicom\catalog\common\models\ProductCategory;
 class ProductQuery extends ActiveQuery
 {
     /**
-     * @return self
+     * @return $this
      */
     public function withUrl()
     {
@@ -20,7 +20,7 @@ class ProductQuery extends ActiveQuery
     }
 
     /**
-     * @return self
+     * @return $this
      */
     public function withFiles()
     {
@@ -30,7 +30,7 @@ class ProductQuery extends ActiveQuery
     }
 
     /**
-     * @return self
+     * @return $this
      */
     public function withAttributeValue()
     {
@@ -40,7 +40,27 @@ class ProductQuery extends ActiveQuery
     }
 
     /**
-     * @return self
+     * @return $this
+     */
+    public function withCategories()
+    {
+        $this->joinWith(['categories']);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function withCategory()
+    {
+        $this->joinWith(['category']);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
      */
     public function active()
     {
@@ -52,14 +72,15 @@ class ProductQuery extends ActiveQuery
     }
 
     /**
-     * @return self
+     * @param array $ids
+     * @return $this
      */
     public function category($ids = [])
     {
         $ids = (array) $ids;
         $catalogProductCategory = ProductCategory::tableName();
 
-        $this->joinWith(['categories'])
+        $this->withCategories()
             ->andWhere(['IN', "$catalogProductCategory.categoryId", $ids]);
 
         return $this;
