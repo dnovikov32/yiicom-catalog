@@ -40,7 +40,6 @@
                             id="price"
                             type="number"
                             v-model="model.price"
-                            required
                             trim />
                     </b-form-group>
 
