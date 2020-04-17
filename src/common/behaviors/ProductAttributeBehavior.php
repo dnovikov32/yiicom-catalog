@@ -69,6 +69,6 @@ class ProductAttributeBehavior extends Behavior
     {
         $attributeValue = $this->getAttributeValue()->one();
 
-        return $attributeValue->delete();
+        return $attributeValue ? $attributeValue->delete() : true;
     }
 }
