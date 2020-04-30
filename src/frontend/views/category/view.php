@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = Html::encode($category->title ?: $category->nam
                                 <?php echo ImageWidget::widget([
                                     'images' => $product->files[0],
                                     'options' => ['class' => 'product-card__img'],
-                                    'preset' => '265x208',
+                                    'preset' => 'productCard',
 //                                    'linkPreset' => '1200x900',
 //                                    'linkOptions' => [
 //                                        'class' => 'product-card__image',
