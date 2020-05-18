@@ -21,7 +21,6 @@
                        @change="onSelectChange(group.attributes, $event)"
                        :id="'attribute' + group.id"
                        class="col-3 custom-select mb-4"
-                       :data-attributes="group.attributes"
                     >
                         <option :value="null">Нет</option>
                         <option v-for="(attr, attrIndex) in group.attributes"
