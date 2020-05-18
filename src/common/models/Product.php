@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
+use yiicom\common\interfaces\ModelInfoInterface;
 use yiicom\common\interfaces\ModelStatus;
 use yiicom\common\interfaces\ModelList;
 use yiicom\common\interfaces\ModelRelations;
@@ -44,7 +45,8 @@ use yiicom\files\common\models\File;
  * @property File[] $files
  * @property AttributeValue $attributeValue From yiicom\catalog\common\behaviors\ProductAttributeBehavior
  */
-class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelations, ModelPageUrl
+class Product extends ActiveRecord implements
+    ModelInfoInterface, ModelStatus, ModelList, ModelRelations, ModelPageUrl
 {
     use ModelStatusTrait, ModelListTrait, ModelRelationsTrait, ModelPageUrlTrait;
 
@@ -56,6 +58,14 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
 		return '{{%catalog_product}}';
 	}
 
+    /**
+     * @return string
+     */
+    public static function modelTitle(): string
+    {
+        return \Yii::t('yiicom', 'Product');
+    }
+    
     /**
      * @return ProductQuery
      */
