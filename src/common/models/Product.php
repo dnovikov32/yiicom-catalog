@@ -20,6 +20,8 @@ use yiicom\catalog\common\behaviors\ProductAttributeBehavior;
 use yiicom\content\common\behaviors\PageUrlBehavior;
 use yiicom\content\common\interfaces\ModelPageUrl;
 use yiicom\content\common\models\PageUrl;
+use yiicom\content\common\models\Relation;
+use yiicom\content\common\behaviors\RelationBehavior;
 use yiicom\content\common\traits\ModelPageUrlTrait;
 use yiicom\files\common\behaviors\FilesBehavior;
 use yiicom\files\common\models\File;
@@ -139,6 +141,9 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
             ],
             'ProductAttributeBehavior' => [
                 'class' => ProductAttributeBehavior::class,
+            ],
+            'RelationBehavior' => [
+                'class' => RelationBehavior::class,
             ]
         ]);
     }
@@ -167,6 +172,11 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
                 'class' => AttributeValue::class,
                 'attribute' => 'attributeValue',
             ],
+            'RelationBehavior' => [
+                'class' => Relation::class,
+                'attribute' => 'relations',
+                'multiple' => true,
+            ]
         ];
     }
 
@@ -176,6 +186,7 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
     public function fields()
     {
         return [
+            'modelClass',
             'id',
             'name',
             'title',
@@ -188,6 +199,7 @@ class Product extends ActiveRecord implements ModelStatus, ModelList, ModelRelat
             'url',
             'files',
             'attributeValue',
+            'relations',
         ];
     }
 }

@@ -120,6 +120,10 @@
 
             <url-form :model="model"></url-form>
 
+            <relation-form :model.sync="model.relations"
+                           :modelClass="model.modelClass">
+            </relation-form>
+
             <attribute-form :model.sync="model.attributeValue"></attribute-form>
 
             <files-form
@@ -140,10 +144,11 @@
 
 <script>
     // TODO: do something with component import from another module
+    import AttributeForm from '../AttributeForm.vue';
     import TitleField from "./../../../../../../../yiicom/src/backend/assets/src/components/form/TitleField.vue";
     import UrlForm from "./../../../../../../../yiicom-content/src/backend/assets/src/components/UrlForm.vue";
+    import RelationForm from './../../../../../../../yiicom-content/src/backend/assets/src/components/RelationForm.vue';
     import FilesForm from "./../../../../../../../yiicom-files/src/backend/assets/src/components/FilesForm.vue";
-    import AttributeForm from '../AttributeForm.vue';
 
     export default {
 
@@ -151,7 +156,8 @@
             'yc-title-fields': TitleField,
             UrlForm,
             FilesForm,
-            AttributeForm
+            AttributeForm,
+            RelationForm
         },
 
         data () {
