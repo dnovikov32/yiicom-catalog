@@ -63,7 +63,7 @@ class Product extends ActiveRecord implements
      */
     public static function modelTitle(): string
     {
-        return \Yii::t('yiicom', 'Product');
+        return Yii::t('yiicom', 'Product');
     }
     
     /**
