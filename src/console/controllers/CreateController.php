@@ -25,8 +25,8 @@ class CreateController extends Controller
         $catalog->left = 1;
         $catalog->right = 2;
         $catalog->level = 0;
-        $catalog->name = Yii::t('yiicom/catalog', 'Catalog');
-        $catalog->title = Yii::t('yiicom/catalog', 'Catalog');
+        $catalog->name = Yii::t('yiicom', 'Catalog');
+        $catalog->title = Yii::t('yiicom', 'Catalog');
 
         $catalog->url = Yii::createObject(PageUrl::class);
         $catalog->url->alias = 'catalog';
