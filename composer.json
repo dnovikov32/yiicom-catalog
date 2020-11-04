@@ -3,9 +3,15 @@
   "description": "Yii commerce catalog module",
   "keywords": ["yii2", "yiicom", "commerce", "catalog"],
   "type": "yii2-extension",
+  "authors": [
+    {
+      "name": "Dmitriy Novikov",
+      "email": "dn@t1000.su"
+    }
+  ],
   "require": {
-    "yiicom/yiicom": "dev-master",
-    "yiicom/yiicom-content": "dev-master"
+    "yiicom/yiicom": "^1.0.0",
+    "yiicom/yiicom-content": "^1.0.0"
   },
   "autoload": {
     "psr-4": { "yiicom\\catalog\\": "src" }
